@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit"><!--用在360中-->
+    <meta name="force-rendering" content="webkit"><!--用在其它-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="build/images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="build/images/touchicon.png"/>
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token"
+          content="XQ240HC04oI9OroyiReqzvA3e1F4AdxQAeCsWj8lnaM4UuD9J9fPtQ9N0Uf6dJL6qXo4HBZqi2BDv_sUSXXY1w==">
+    <title>二一组卷-VIP在线购买</title>
+    <script>
+        (function (doc, win) {
+            // 基于 window.screen.width 实现自适应布局
+            var screenWidth = 0,
+                size = 'XL',
+                root = doc.documentElement;
+            if (window.screen && screen.width) {
+                screenWidth = screen.width;
+                if (screenWidth >= 1200) size = 'XL'; // 大屏 - 1200px         
+                else if (screenWidth < 1200) size = 'XS'; // 小屏 - 1000px
+            }
+            root.className += " " + size; // 标记CSS
+            win.SIZE = size; // 标记JS        
+        })(document, window);
+
+        window.OT2 = {}; // 全局命名空间
+        OT2.AboveIE9 = true; // 默认非iE或IE9及以上
+        OT2.ns = function (name) {
+            var container = OT2;
+            var parts = name.split('.');
+            var current = '';
+            if (parts[0] == 'OT2') parts.shift();
+            while (current = parts.shift()) {
+                if (!container[current]) container[current] = {};
+                container = container[current];
+            }
+            return container;
+        };
+        var HostInfo = "https://zujuan.21cnjy.com";
+        USER = {};//通知js用户的信息
+        OT2.CSRF = {"_csrf": "XQ240HC04oI9OroyiReqzvA3e1F4AdxQAeCsWj8lnaM4UuD9J9fPtQ9N0Uf6dJL6qXo4HBZqi2BDv_sUSXXY1w=="};
+    </script>
+    <!--[if lt IE 9]>
+    <script> OT2.AboveIE9 = false;</script>
+    <![endif]-->
+    <link rel="stylesheet" href="build/css/base.min.css?v=4f7c7cb766"/>
+    <link rel="stylesheet" href="build/css/spriter-mix.min.css?v=80f126dde1"/>
+    <link rel="stylesheet" href="build/lib/artDialog/css/ui-dialog.css"/>
+    <link rel="stylesheet" href="build/css/artDialog-skin-ot2.min.css"/>
+    <link rel="stylesheet" href="build/css/main.min.css?v=7c0556f292"/>
+    <link rel="stylesheet" href="build/css/popup.min.css?v=7e4552876c"/>
+    <script src="lib/jquery.min.js?v=0673f7f55b"></script>
+    <script type="text/javascript">$.ajaxSetup({cache: false});</script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="build/js/cookie.min.js?v=cb2827edb0"></script>
+    <script src="lib/json3.min.js"></script>
+    <script src="lib/artDialog/dist/dialog-plus.js"></script>
+    <script src="build/js/artDialog-config.min.js"></script>
+    <script src="build/js/element.min.js?v=3dd7e180e7"></script>
+    <script src="build/js/localdata.min.js?v=ea1de51aee"></script>
+    <script src="build/js/util.min.js?v=ed356ca9c2"></script>
+    <script src="build/js/global.min.js?v=f06f3147ac"></script>
+</head>
+
+
+<body>
+<!--[if lt IE 7]>
+<link href="../static.21cnjy.com/kill-ie/kill-ie.css" rel="stylesheet" type="text/css">
+<script src="../static.21cnjy.com/kill-ie/kill-ie.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="build/css/buy-tips.min.css"/>
+<style>
+    .footer {
+        margin-top: 0;
+    }
+
+    .modal-header h4 {
+        color: #666;
+    }
+
+    .modal-header h4 > span {
+        border-color: transparent;
+        cursor: pointer;
+    }
+
+    .modal-header h4 > .active {
+        color: #17b55b;
+        border-color: #17b55b;
+    }
+
+    .paper {
+        display: none;
+    }
+</style>
+<link rel="stylesheet" href="build/css/header.1.min.css">
+<div class="top-head">
+    <div class="g-cw top-head-bd cfx">
+        <span class="fl slogan">二一教育旗下产品</span>
+        <ul class="top-nav-cn fr">
+            <li class="p-20">
+                <a href="index.html" class="menu-tit">网站首页</a>
+            </li>
+            <li class="sep"></li>
+            <li class="p-20">
+                <a href="help.html" class="menu-tit">帮助中心</a>
+            </li>
+            <li class="sep"></li>
+            <li class="menu-item">
+                <a href="vip.html" class="menu-tit" target="_blank"><span>购买服务<i
+                        class="iconw-search-down"></i></span></a>
+                <div class="menu-item-inner">
+                    <a href="vip.html" target="_blank">VIP服务</a>
+                    <a href="request.html" target="_blank">组卷通服务</a>
+                    <a href="login.html" target="_blank">激活VIP</a>
+                </div>
+            </li>
+            <li class="sep"></li>
+            <li class="menu-item">
+                <a href="javascript:;" class="menu-tit" target="_blank"><span>旗下站点<i
+                        class="iconw-search-down"></i></span></a>
+                <div class="menu-item-inner">
+                    <a href="https://www.21cnjy.com/zhitongche/index" target="_blank">校网通</a>
+                    <a href="http://www.jbzyk.com" target="_blank">校本资源库</a>
+                    <a href="http://tiku.21cnjy.com/" target="_blank">在线题库</a>
+                    <a href="https://www.21cnjy.com/video.php" target="_blank">名师课堂</a>
+                    <a href="https://www.21cnjy.com/productshow/index.php?prod=school" target="_blank">数字化校园</a>
+                    <a href="https://www.21cnjy.com/productshow/index.php?prod=yun" target="_blank">区域云平台</a>
+                    <a href="https://www.21cnjy.com/productshow/app/" target="_blank">二一教育APP</a>
+                </div>
+            </li>
+            <li class="sep"></li>
+            <!--登录前-->
+            <li class="login-item">
+                <a shref="/login" class="top-login-item" onclick="OT2.Global.initLogin(); return false;"><span>登录</span></a>
+                <a href="http://passport.21cnjy.com/site/register?jump_url=http://zujuan.21cnjy.com/payment/vip"
+                   class="top-register-item"><span>注册</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="top-search">
+    <div class="g-cw cfx">
+        <div class="logo-block">
+            <a href="/#"><img src="build/images/test_logo.png"></a>
+        </div>
+        <div class="w fl J_top_search_form">
+            <div class="searchbox-bd">
+                <form class="search-form" action="/#search" method="GET">
+                    <div class="search-wrap cfx">
+                        <div class="new-search-type">
+                            <span class="search-select">
+                                <em class="searc-txt">试卷</em>
+                                <i class="iconw-search-down"></i>
+                            </span>
+                            <ul class="new-search-list">
+                                <li>
+                                    <input type="radio" name="type" value="paper" style="display: none;">
+                                    <span>试卷</span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="type" value="question" style="display: none;">
+                                    <span>试题</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="search">
+                            <input type="hidden" name="top_search" value="1"/>
+                            <input type="text" name="content" class="search-inputtxt" value="" placeholder="请输入搜索关键词">
+                            <span class="btn-search">         
+                                <button type="submit" id="J_submit"><i class="iconw-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="service-block">
+            <a href="vip.html" class="service-item">
+                <img src="build/images/VIP.gif">
+                <strong>VIP申请</strong>
+            </a>
+            <a href="/help/request" class="service-item">
+                <img src="build/images/xwt.gif">
+                <strong>组卷通申请</strong>
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    $('.new-search-type').hover(function () {
+        $('.new-search-list').show();
+    }, function () {
+        $('.new-search-list').hide();
+    })
+    $(".new-search-list").on('click', 'li', function (evt) {
+        var $el = $(evt.currentTarget);
+        $el.find('input[name=type]').prop('checked', true);
+        $('.searc-txt').text($el.find('span').text());
+        $el.siblings().find('input[name=type]').prop('checked', false);
+        $('.new-search-list').hide();
+    })
+    $('#J_submit').click(function () {
+        if ($.trim($(this).parents('.search').find('.search-inputtxt').val()) == '') {
+            return false;
+        }
+    })
+</script><!--头部导航部分开始-->
+<script>
+    OT2.xd_chid = {"chid": 3, "xd": 2} || null;
+</script>
+
+<script>
+    function mechanToLogin() {
+        var tologin = 0;
+        if (tologin) {
+            OT2.Global.initLogin();
+            return false;
+        }
+        return true;
+    }
+</script>
+<!--头部导航部分结束-->
+<div class="nav-wrap J_main_nav">
+    <div class="g-cw cfx">
+        <div class="main-cate fl">
+            <a href="javascript:;" class="current">
+                当前：<span>初中数学</span>
+                <i class="iconw-nav-down"></i>
+            </a>
+            <div class="main-cate-menu">
+                <div class="item">
+                    <h3>小学</h3>
+                    <div class="cfx">
+                        <a href="javascript:;" data-xdchid="1,2" class="">语文</a>
+                        <a href="javascript:;" data-xdchid="1,3" class="">数学</a>
+                        <a href="javascript:;" data-xdchid="1,4" class="">英语</a>
+                        <a href="javascript:;" data-xdchid="1,5" class="">科学</a>
+                        <a href="javascript:;" data-xdchid="1,9" class="">政治思品</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <h3>初中</h3>
+                    <div class="cfx">
+                        <a href="javascript:;" data-xdchid="2,2" class="">语文</a>
+                        <a href="javascript:;" data-xdchid="2,3" class="active">数学</a>
+                        <a href="javascript:;" data-xdchid="2,4" class="">英语</a>
+                        <a href="javascript:;" data-xdchid="2,5" class="">科学</a>
+                        <a href="javascript:;" data-xdchid="2,6" class="">物理</a>
+                        <a href="javascript:;" data-xdchid="2,7" class="">化学</a>
+                        <a href="javascript:;" data-xdchid="2,8" class="">历史</a>
+                        <a href="javascript:;" data-xdchid="2,9" class="">政治思品</a>
+                        <a href="javascript:;" data-xdchid="2,10" class="">地理</a>
+                        <a href="javascript:;" data-xdchid="2,20" class="">历史与社会</a>
+                        <a href="javascript:;" data-xdchid="2,21" class="">社会思品</a>
+                        <a href="javascript:;" data-xdchid="2,11" class="">生物</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <h3>高中</h3>
+                    <div class="cfx">
+                        <a href="javascript:;" data-xdchid="3,2" class="">语文</a>
+                        <a href="javascript:;" data-xdchid="3,3" class="">数学</a>
+                        <a href="javascript:;" data-xdchid="3,4" class="">英语</a>
+                        <a href="javascript:;" data-xdchid="3,6" class="">物理</a>
+                        <a href="javascript:;" data-xdchid="3,7" class="">化学</a>
+                        <a href="javascript:;" data-xdchid="3,8" class="">历史</a>
+                        <a href="javascript:;" data-xdchid="3,9" class="">政治思品</a>
+                        <a href="javascript:;" data-xdchid="3,10" class="">地理</a>
+                        <a href="javascript:;" data-xdchid="3,11" class="">生物</a>
+                        <a href="javascript:;" data-xdchid="3,14" class="">信息技术</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-nav fl">
+            <ul class="cfx">
+                <li>
+                    <a href="index.html" class="nav-tit <%= cur_nav == 'index' ? 'active' : '' %>">首页</a>
+                </li>
+                <li class="nav-menu">
+                    <a href="questions/categories/index.html" class="nav-tit">手动组卷</a>
+                    <div class="nav-menu-inner">
+                        <a href="questions/categories/index.html">章节同步选题</a>
+                        <a href="questions/knowledges/index.html">知识点选题</a>
+                    </div>
+                </li>
+                <li class="nav-menu">
+                    <a href="smart/categories/index.html" class="nav-tit">智能组卷</a>
+                    <div class="nav-menu-inner">
+                        <a href="smart/categories/index.html">章节智能组卷</a>
+                        <a href="smart/knowledges/index.html">知识点智能组卷</a>
+                        <a href="smart/spec-list/index.html">双向细目表组卷</a>
+                    </div>
+                </li>
+                <li class="nav-menu">
+                    <a href="papers/sync/index.html" class="nav-tit">试卷库</a>
+                    <div class="nav-menu-inner">
+                        <a href="papers/sync/index.html">同步试卷类型</a>
+                        <a href="papers/exam/index.html">测试试卷类型</a>
+                        <a href="papers/real/index.html">真卷/模拟试卷类型</a>
+                    </div>
+                </li>
+                <li class="nav-menu">
+                    <a href="subject/list/index.html" class="nav-tit">专题特供</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $('.main-cate-menu .item').each(function () {
+        $(this).on('click', 'a', function (evt) {
+            var $ev = $(evt.currentTarget);
+            var xdchid = $ev.data('xdchid').toString().split(',');
+            changeXdChid(xdchid);
+        })
+    })
+
+    function changeXdChid(xdchid) {
+        var promise_a = $.get('/data/change-channel', {xd: xdchid[0], chid: xdchid[1]});
+        var promise_b = $.get('/question/set-cate-cash', {xd: xdchid[0], chid: xdchid[1]});
+        $.when(promise_a, promise_b).done(function () {
+            window.location.reload();
+        })
+    }
+</script>
+<div class="bg-wrap">
+    <div class="g-container">
+        <div class="breadcrumb g-container">
+            <i class="icona-dingwei"></i>当前位置：
+            <a href="javascript:;">购买服务 </a>
+            <b>&gt;</b>
+            <a href="javascript:;">VIP服务购买</a>
+        </div>
+        <form action="" class="pay-form f-cb">
+            <!--                        -->
+            <!--活动时间块-->
+            <!--活动背景块-->
+            <div id="money-fieldset">
+                <div class="pay-section f-cb">
+                    <span class="pay-tit">购买学科：</span>
+                    <div class="pay-sel">
+                        <div class="custom-select  custom-select-enable xd-select">
+                            <span class="selet-txt">请选择学段</span>
+                            <i class="tdown"></i>
+                            <ul class="sel-list" id="selxd">
+                                <!--<li data-id="0">请选择学段</li>-->
+                                <li data-id="1">小学</li>
+                                <li data-id="2">初中</li>
+                                <li data-id="3">高中</li>
+                            </ul>
+                            <input type="hidden" name="buy_xd">
+                        </div>
+                        <div class="custom-select custom-select-enable xk-select">
+                            <span class="selet-txt">请选择学科</span>
+                            <i class="tdown"></i>
+                            <ul class="sel-list" id="selchname">
+                                <!--<li data-id="0">请选择学科</li>-->
+                            </ul>
+                            <input type="hidden" name="buy_xk">
+                        </div>
+                        <span class="warn" style="display:none">*请选择学科</span>
+                    </div>
+                </div>
+                <div class="pay-section f-cb">
+                    <span class="pay-tit">购买套餐：</span>
+                    <ul class="pay-time f-cb">
+                        <li>
+                            <a href="javascript:;">
+                                <div class="vip-top">
+                                    <span class="month">一个月</span>
+                                    <p class="vip-mtip"><span>(可下载50份试卷)</span></p>
+                                    <p class="vip-bottom"><span>售价：16元</span></p>
+                                </div>
+                            </a>
+                            <input type="radio" name="tc" value="1" data-money="16"/>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="vip-top">
+                                    <span class="month">三个月</span>
+                                    <p class="vip-mtip"><span>(可下载150份试卷)</span></p>
+                                    <p class="vip-bottom"><span>售价：48元</span></p>
+                                </div>
+                            </a>
+                            <input type="radio" name="tc" value="3" data-money="48"/>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="vip-top">
+                                    <span class="month">六个月</span>
+                                    <p class="vip-mtip"><span>(可下载300份试卷)</span></p>
+                                    <p class="vip-bottom"><span>售价：96元</span></p>
+                                </div>
+                            </a>
+                            <input type="radio" name="tc" value="6" data-money="96"/>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="vip-top">
+                                    <span class="month">十二个月</span>
+                                    <p class="vip-mtip"><span>(可下载600份试卷)</span></p>
+                                    <p class="vip-bottom"><span>售价：192元</span></p>
+                                </div>
+                            </a>
+                            <input type="radio" name="tc" value="12" data-money="192"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pay-section f-cb tip-coupon">
+                </div>
+                <div class="pay-section f-cb">
+
+                    <div class="num-accept" id="j-invoice">
+                        <span class="pay-tit">开具发票：</span>
+                        <input type="checkbox" name="isinvoice" value="1" id="fapiao-checkbox"/>
+                        <label for="fapiao-checkbox" class="invo-txt">选择开具发票</label>
+                        <span id="chk">修改</span>
+                        <div class="user-invoice" style="display:none;">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <td colspan="4">发票基本信息</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>发票类型：</th>
+                                    <td colspan="3">
+                                        <div id="invoType"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>发票抬头：</th>
+                                    <td colspan="3">
+                                        <div id="invoTitle"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>税号：</th>
+                                    <td colspan="3">
+                                        <div id="invoDuty"></div>
+                                    </td>
+                                </tr>
+                                <tr class="paper">
+                                    <th>收件人：</th>
+                                    <td>
+                                        <div id="invoUser"></div>
+                                </tr>
+                                <tr>
+                                    <th>手机号码：</th>
+                                    <td>
+                                        <div id="invoPhone"></div>
+                                    </td>
+                                </tr>
+                                <tr class="elec">
+                                    <th>邮箱：</th>
+                                    <td>
+                                        <div id="invoEmail"></div>
+                                    </td>
+                                    <th>备注：</th>
+                                    <td>
+                                        <div id="invoMemo"></div>
+                                    </td>
+                                </tr>
+                                <tr class="paper">
+                                    <th>地址：</th>
+                                    <td colspan="3">
+                                        <div id="invoSite"></div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="type-confirm f-cb">
+                    <div class="type-btn">
+                        <p class="clauses">
+                            <input id="clause-checkbox" type="checkbox" value="1"/>
+                            我已经阅读并同意<a style="color: #f19159;" href="javascript:;"
+                                       class="open-clause">《二一教育组卷VIP充值服务条款》</a>
+                        </p>
+                        <p class="pay-fail">123</p>
+                        <input type="hidden" name="submit_order" value='tue'>
+                        <button type="submit" class="type-btn1" id="btn_order">立即支付</button>
+                    </div>
+
+                    <div class="pay-total">
+                        <span class="discount" style="font-size:14px; color:#666;"></span>
+                        金额：<span data-key="total" class="play-big">0</span>元<span id="msg-change"></span>
+                    </div>
+                    <a href="vip-card" class="go-vip">&gt&gt 激活VIP体验卡</a>
+                </div>
+            </div>
+
+        </form>
+        <div class="vip-introduce">
+            <dl>
+                <dt>VIP会员介绍</dt>
+                <dd>1、购买二一组卷VIP会员服务，可免费下载试卷。</dd>
+                <dd>2、会员可免费进行在线测试功能，并提供完整、详细的测试报告。</dd>
+                <dd>3、每张组卷的试题数量限制，由原来的30道试题，增加至50道。</dd>
+                <dd>4、每个用户允许开通多个学科的VIP服务。</dd>
+                <dd>5、VIP服务时间为一整个月（30天），不受日期的影响。</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<!--footer开始-->
+
+<div class="footer">
+    <div class="footer-con g-container">
+        <div class="footer-top f-cb">
+            <div class="con-gs">
+                <h3>公司介绍</h3>
+                <p>Company Introduction</p>
+                <ul>
+                    <li><i class="icona-ellipse"></i><a href="http://www.21cnjy.com/about/about_about.php"
+                                                        target="_blank">公司简介</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/copyright.html" target="_blank">版权声明</a></li>
+                    <li><i class="icona-ellipse"></i><a href="http://www.21cnjy.com/about/about_company-news.php"
+                                                        target="_blank">公司动态</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/feedback.html" target="_blank">意见反馈</a></li>
+                </ul>
+            </div>
+            <div class="con-fw">
+                <h3>服务介绍</h3>
+                <p>Service Introduction</p>
+                <ul class="fw-list">
+                    <li><i class="icona-ellipse"></i><a href="help/zujuan.html" target="_blank">组卷通服务</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/vip.html" target="_blank">VIP会员服务</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/diy.html" target="_blank">学校定制化服务</a></li>
+                </ul>
+            </div>
+            <div class="con-bz">
+                <h3>帮助中心</h3>
+                <p>Help center</p>
+                <ul>
+                    <li><i class="icona-ellipse"></i><a href="help/demo.html" target="_blank">视频帮助</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/faq.html" target="_blank">常见问题</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/makepaper.html" target="_blank">如何组卷</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/download.html" target="_blank">下载试卷</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/test.html" target="_blank">在线测试</a></li>
+
+                    <li><i class="icona-ellipse"></i><a href="help/new.html" target="_blank">最新试题</a></li>
+                </ul>
+            </div>
+            <div class="con-ewm">
+                <img src="build/images/ewm.png" style="width:80px" alt="二一教育APP"/>
+                <p>二一教育APP</p>
+            </div>
+            <div class="con-lx">
+                <i class="icona-phone"></i>
+                <div class="lx-txt">
+                    <p class="lx-txt-p1">400-637-9991</p>
+                    <p class="lx-txt-p2">周一至周五 8:30-17:30</p>
+                </div>
+                <div class="lx-teacher">
+                    <a href="javascript:;" id="jBizQQWPA"><i class="icona-kefu"></i>在线咨询客服</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">2006-2016 二一教育股份有限公司<a href="http://www.miibeian.gov.cn/"
+                                                        class="copy">粤ICP备11039084号</a> 粤教信息(2013)2号</p>
+            <p class="footer-adress">
+                <span>邮编：518000</span>
+                <span>地址：深圳市龙岗区横岗街道深峰路3号启航商务大厦5楼5M</span>
+            </p>
+        </div>
+    </div>
+</div>
+<!--footer结束-->
+<div id="Login_Pal" style="display: none">
+    <link rel="stylesheet" href="/css/reg.min.css?v=3433714ba6"/>
+    <style>
+        .reg-form {
+            z-index: 1110;
+            left: 50%;
+            margin-left: -180px;
+            top: 0;
+        }
+
+        .reg-mask {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: #000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            z-index: 1000;
+        }
+
+        .reg-form .btn-close {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            display: block;
+            text-indent: -9999px;
+            width: 24px;
+            height: 24px;
+            background: url(/images/close_24.png) no-repeat center center;
+        }
+
+        .reg-form .btn-close:hover {
+            opacity: 0.8;
+        }
+    </style>
+    <div class="reg-mask"></div>
+    <div class="reg-form">
+        <ul>
+            <li>
+                <a href="javascript:;" class="reg-active">登录</a>
+            </li>
+        </ul>
+        <a class="btn-close J_CloseForm">x</a>
+        <form id="J_LoginForm" class="reg-form-detail" action="/login" method="post">
+            <input type="hidden" name="_csrf"
+                   value="XQ240HC04oI9OroyiReqzvA3e1F4AdxQAeCsWj8lnaM4UuD9J9fPtQ9N0Uf6dJL6qXo4HBZqi2BDv_sUSXXY1w==">
+            <div class="reg-form-input">
+                <label for="account" class="placeholder">请输入网站账号/手机号码/邮箱</label>
+                <input type="text" name="LoginForm[username]" id="account" placeholder="请输入网站账号/手机号码/邮箱">
+                <div class="fm-warn"><p></p><i></i></div>
+
+            </div>
+            <div class="reg-form-input">
+                <label for="password" class="placeholder">请输入密码</label>
+                <input type="password" name="LoginForm[password]" id="password" placeholder="请输入密码">
+                <div class="fm-warn"><p></p><i></i></div>
+
+            </div>
+            <div class="login-line">
+                <div class="login-auto">
+                    <span class="checkbox checked f-usn" onselectstart="return false"><i class="icona-check"></i><input
+                            type="checkbox" checked="" value="1" class="f-dn" name="LoginForm[rememberMe]">自动登录</span>
+                </div>
+                <div class="login-pwd">
+                    <a href="http://passport.21cnjy.com/site/password-find?jump_url=http://zujuan.21cnjy.com/payment/vip"
+                       target="_blank">忘记密码</a>
+                </div>
+            </div>
+            <div class="reg-btn">
+                <button type="submit">登录</button>
+            </div>
+        </form>
+        <div class="login-others">
+            <div class="login-others-method">其它登录方式：
+                <a href="http://passport.21cnjy.com/site/show-qr-code?jump_url=http://zujuan.21cnjy.com/payment/vip"><i
+                        class="icona-wxloginbtn"> </i></a>
+                <a href="http://21cnjy.com/qqconnect?jump_url=http://zujuan.21cnjy.com/payment/vip"><i
+                        class="icona-qqloginbtn"> </i></a>
+            </div>
+            <div class="login-reg"><a target="_blank"
+                                      href="http://passport.21cnjy.com/site/register?jump_url=http://zujuan.21cnjy.com/payment/vip">免费注册<i
+                    class="icona-right-arrow"></i></a></div>
+
+        </div>
+    </div>
+</div>
+<script src="build/js/element.min.js"></script>
+<script src="build/js/field.min.js"></script>
+<script src="build/js/user.min.js"></script>
+<div class="modal-invoice">
+    <div class="modal-content">
+        <div class="modal-header">
+            <a href="javascript:;" class="inv-close">x</a>
+            <h4 class="modal-title f-cb">
+                <span class="active" id="elec">电子发票</span>
+                <span id="paper">纸质发票</span>
+            </h4>
+        </div>
+        <div class="modal-body">
+            <form action="" method="post" name="invoiceform">
+                <input type="hidden" name="isinvoice" value='0'>
+                <div class="form-flash"></div>
+                <div class="invoice-col first">
+                    <label>开票说明:</label><span>（* 发票类型为普通增值税电子发票，开具电子发票后无法更换为普通纸质发票；）</span>
+                </div>
+                <div class="invoice-col">
+                    <label for="">发票抬头</label>
+                    <input type="text" name="invoTitle" class="input required" placeholder="填写发票抬头">
+                </div>
+                <div class="invoice-col">
+                    <label for="">税号</label>
+                    <input type="text" name="invoDuty" class="input" placeholder="填写纳税人识别号（非必填）">
+                </div>
+                <div class="invoice-col paper">
+                    <label for="">收件人</label>
+                    <input type="text" name="invoUser" class="input " placeholder="填写收件人">
+                </div>
+                <div class="invoice-col">
+                    <label for="">手机号码</label>
+                    <input type="text" name="invoPhone" class="input required " placeholder="填写手机号码">
+                </div>
+                <div class="invoice-col elec">
+                    <label for="">邮箱</label>
+                    <input type="text" name="invoEmail" class="input required" placeholder="填写邮箱">
+                </div>
+                <div class="invoice-col elec">
+                    <label for="">备注</label>
+                    <input type="text" name="invoMemo" class="input " placeholder="填写备注信息（非必填）">
+                </div>
+                <div class="invoice-col paper">
+                    <label for="">收件地址</label>
+                    <input type="text" name="invoSite" class="address input required " placeholder="填写收件地址">
+                </div>
+                <div class="type-btn2">
+                    <button type="submit" class="type-btn3" id="send">确认填写</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="ticket-pop">
+</div>
+<div class="modal-bg"></div>
+<script src="build/js/pay0.min.js?v=47b49284bb"></script>
+<script>
+
+    $('#selxd li').click(function () {
+        var xd = $(this).attr('data-id');
+        var url = '/payment/ajax-chname?xd=' + xd;
+        $.ajax(url)
+            .done(function (res) {
+                var html = '';
+                $.each(res, function (i, v) {
+                    html += '<li data-id="' + i + '">' + v + '</li>';
+                });
+                $("#selchname").html(html);
+                $('input[name=buy_xk]').val(0);
+                $("#selchname").parent().children('.selet-txt').html('请选择学科');
+            })
+            .fail(function () {
+            });
+
+    });
+    $('.modal-header').on('click', 'span', function () {
+        $(this).addClass('active');
+        if (this.id == 'paper') {
+            $('.first span').html("*开具发票需要另加20元手续费");
+            $('#elec').removeClass('active');
+            $('.elec').hide();
+            $('.paper').show();
+        } else {
+            $('.first span').html('（* 发票类型为普通增值税电子发票，开具电子发票后无法更换为普通纸质发票；）');
+            $('.elec').show();
+            $('.paper').hide();
+            $('#paper').removeClass('active');
+        }
+    })
+    $('.open-clause').click(function () {
+        $.get('/payment/open-clause').done(function (data) {
+            $('.ticket-pop').html(data.html).show();
+            $('.modal-bg').show();
+        }).fail(function () {
+        });
+    });
+    $('#j-coupon').click(function () {
+        $('.ticket-pop,.modal-bg').show();
+
+    });
+    $('.ticket-close').click(function () {
+        $('.ticket-pop,.modal-bg').hide();
+    })
+    Task.init({
+        default_invoice: 20,   // 发票手续费
+        order_url: "/payment/vip-submit", // 立即支付 submit 地
+        isactive: 0
+    });
+</script>
+<script src="build/js/global.min.js?v=f06f3147ac"></script>
+<a class="return" href="javascript:;" style="right: 126px; display: inline;"><i class="icona-top"></i></a>
+<!--<script src="https://wpa.b.qq.com/cgi/wpa.php" type="text/javascript"></script>-->
+<script>
+    //    BizQQWPA.addCustom({aty: '0', a: '0', nameAccount: 4006379991, selector: 'jBizQQWPA'});
+    (function (window, undefined) {
+        try {
+            var document = window.document;
+            document.getElementById('jBizQQWPA').onclick = function () {
+                window.open('http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODE4MjQ4OF80NjM1NzhfNDAwNjM3OTk5MV8yXw&uin=', '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
+            }
+        } catch (e) {
+        }
+    }(window));
+</script>
+<script src="assets/ae3cdea7/yii.js"></script>
+<script src="assets/a0edfdbe/js/layer/layer.js"></script>
+</body>
+
+
+</html>

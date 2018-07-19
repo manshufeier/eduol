@@ -1,0 +1,643 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit"><!--用在360中-->
+    <meta name="force-rendering" content="webkit"><!--用在其它-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../build/images/favicon.ico">
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token"
+          content="RmQV7CPAZgjYQvufw1tADLi9pSv-9W7rtwBlDz-1UM0TDWWuEpAIOoAQkvmoHRBhzeLNRZadX5yOOB9ZDfoxpw==">
+    <title>二一组卷-在线组卷-智能组卷,中小学在线题库</title>
+    <meta name="keywords" content="组卷网,组卷系统,智能组卷">
+    <meta name="description" content="二一组卷提供中小学教师·学生·家长使用的在线组卷系统，可以方便中小学各学科进行章节、知识点、难度筛选条件自由组合组卷！">
+    <link rel="stylesheet" href="//static.21cnjy.com/artDialog/css/ui-dialog.css">
+    <link rel="stylesheet" href="//static.21cnjy.com/artDialog/css/artDialog-skin-ot2.css">
+    <link rel="stylesheet" href="../../build/css/index.css?v=6b81c05ea6">
+    <script src="https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef"></script>
+    <script src="../../../static.21cnjy.com/js/jquery-1.12.0.min.js"></script>
+    <script>
+        var JST = {}; // js模板集合
+        var Application = {
+            DEF_XD: 2,
+            DEF_CHID: 3,
+            debounceTime: 400
+        };
+        Application.dataState = {
+            query: [],
+            hostInfo: "https://zujuan.21cnjy.com",
+            csrf: {"_csrf": "RmQV7CPAZgjYQvufw1tADLi9pSv-9W7rtwBlDz-1UM0TDWWuEpAIOoAQkvmoHRBhzeLNRZadX5yOOB9ZDfoxpw=="}
+        };
+        var console = console || {};
+        console.log = console.log || function () {
+            document.title = 'IE make it error'
+        }
+        if (!Array.prototype.indexOf) {
+            Array.prototype.indexOf = function (val) {
+                var value = this;
+                for (var i = 0; i < value.length; i++) {
+                    if (value[i] == val) return i;
+                }
+                return -1;
+            };
+        }
+
+    </script>
+    <style>.cke {
+        visibility: hidden;
+    }</style>
+</head>
+<body>
+<div class="MnView">
+    <div class="HeaderView">
+        <div class="J_top_head">
+            <div class="top-head">
+                <div class="g-cw top-head-bd cfx"><span class="fl slogan">二一教育旗下产品</span>
+                    <ul class="top-nav-cn fr">
+                        <li class="p-20"><a href="../../index.html" class="menu-tit">网站首页</a></li>
+                        <li class="sep"></li>
+                        <li class="p-20"><a href="../../help.html" class="menu-tit">帮助中心</a></li>
+                        <li class="sep"></li>
+                        <li class="menu-item">
+                            <a href="../../vip.html" class="menu-tit" target="_blank"><span>购买服务<i class="iconw-search-down"></i></span></a>
+                            <div class="menu-item-inner">
+                                <a href="../../vip.html" target="_blank">VIP服务</a>
+                                <a href="../../request.html" target="_blank">组卷通服务</a>
+                                <a href="../../login.html" target="_blank" class="J_islogin">激活VIP</a>
+                            </div>
+                        </li>
+                        <li class="sep"></li>
+                        <li class="menu-item">
+                            <a href="javascript:;" class="menu-tit" target="_blank"><span>旗下站点<i class="iconw-search-down"></i></span></a>
+                            <div class="menu-item-inner">
+                                <a href="https://www.21cnjy.com/zhitongche/index" target="_blank">校网通</a>
+                                <a href="http://www.jbzyk.com" target="_blank">校本资源库</a>
+                                <a href="http://tiku.21cnjy.com/" target="_blank">在线题库</a>
+                                <a href="https://www.21cnjy.com/video.php" target="_blank">名师课堂</a>
+                                <a href="https://www.21cnjy.com/productshow/index.php?prod=school" target="_blank">数字化校园</a>
+                                <a href="https://www.21cnjy.com/productshow/index.php?prod=yun" target="_blank">区域云平台</a>
+                                <a href="https://www.21cnjy.com/productshow/app/" target="_blank">二一教育APP</a>
+                            </div>
+                        </li>
+                        <li class="sep"></li>      <!--登录前-->
+                        <li class="login-item">
+                            <a class="top-login-item">登录</a>
+                            <a href="../../register.html" class="top-register-item">注册</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="top-search">
+                <div class="g-cw cfx">
+                    <div class="logo-block"><a href="/#"><img src="../../build/images/test_logo.png"></a></div>
+                    <div class="w fl J_top_search_form">
+                        <div class="searchbox-bd">
+                            <form class="search-form" action="/#search" method="GET">
+                                <div class="search-wrap cfx">
+                                    <div class="new-search-type">
+                                        <span class="search-select">  <em class="searc-txt">试卷</em>  <i class="iconw-search-down"></i>  </span>
+                                        <ul class="new-search-list">
+                                            <li><input type="radio" name="type" value="paper" checked="" style="display: none;"> <span>试卷</span></li>
+                                            <li><input type="radio" name="type" value="question" style="display: none;"><span>试题</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="search">
+                                        <input type="text" name="content" class="search-inputtxt" value="" placeholder="请输入搜索关键词">
+                                        <input type="hidden" name="top_search" value="1">
+                                        <span class="btn-search"> <button type="submit" id="J_submit"><i class="iconw-search"></i></button>  </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="service-block">
+                        <a href="../../vip.html" class="service-item"> <img src="../../build/images/VIP.gif"> <strong>VIP申请</strong> </a>
+                        <a href="../../request.html" class="service-item"> <img src="../../build/images/xwt.gif"> <strong>组卷通申请</strong> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-wrap J_main_nav">
+            <div class="g-cw cfx">
+                <div class="main-cate fl">
+                    <a href="javascript:;" class="current"> 当前：<span>初中数学</span> <i class="iconw-nav-down"></i> </a>
+                    <div class="main-cate-menu">
+                        <div class="item"><h3>小学</h3>
+                            <div class="cfx">
+                                <a href="javascript:;" data-xdchid="1,2" class="">语文</a>
+                                <a href="javascript:;" data-xdchid="1,3" class="">数学</a>
+                                <a href="javascript:;" data-xdchid="1,4" class="">英语</a>
+                                <a href="javascript:;" data-xdchid="1,5" class="">科学</a>
+                                <a href="javascript:;" data-xdchid="1,9" class="">政治思品</a>
+                            </div>
+                        </div>
+                        <div class="item"><h3>初中</h3>
+                            <div class="cfx">
+                                <a href="javascript:;" data-xdchid="2,2" class="">语文</a>
+                                <a href="javascript:;" data-xdchid="2,3" class="active">数学</a>
+                                <a href="javascript:;" data-xdchid="2,4" class="">英语</a>
+                                <a href="javascript:;" data-xdchid="2,5" class="">科学</a>
+                                <a href="javascript:;" data-xdchid="2,6" class="">物理</a>
+                                <a href="javascript:;" data-xdchid="2,7" class="">化学</a>
+                                <a href="javascript:;" data-xdchid="2,8" class="">历史</a>
+                                <a href="javascript:;" data-xdchid="2,9" class="">政治思品</a>
+                                <a href="javascript:;" data-xdchid="2,10" class="">地理</a>
+                                <a href="javascript:;" data-xdchid="2,11" class="">生物</a>
+                                <a href="javascript:;" data-xdchid="2,20" class="">历史与社会</a>
+                                <a href="javascript:;" data-xdchid="2,21" class="">社会思品</a>
+                            </div>
+                        </div>
+                        <div class="item"><h3>高中</h3>
+                            <div class="cfx">
+                                <a href="javascript:;" data-xdchid="3,2" class="">语文</a>
+                                <a href="javascript:;" data-xdchid="3,3" class="">数学</a>
+                                <a href="javascript:;" data-xdchid="3,4" class="">英语</a>
+                                <a href="javascript:;" data-xdchid="3,6" class="">物理</a>
+                                <a href="javascript:;" data-xdchid="3,7" class="">化学</a>
+                                <a href="javascript:;" data-xdchid="3,8" class="">历史</a>
+                                <a href="javascript:;" data-xdchid="3,9" class="">政治思品</a>
+                                <a href="javascript:;" data-xdchid="3,10" class="">地理</a>
+                                <a href="javascript:;" data-xdchid="3,11" class="">生物</a>
+                                <a href="javascript:;" data-xdchid="3,14" class="">信息技术</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-nav fl">
+                    <ul class="cfx">
+                        <li><a href="../../index.html" class="nav-tit ">首页</a></li>
+                        <li class="nav-menu">
+                            <a href="../../questions/categories/index.html" class="nav-tit ">手动组卷</a>
+                            <div class="nav-menu-inner">
+                                <a href="../../questions/categories/index.html" class="">章节同步选题</a>
+                                <a href="../../questions/knowledges/index.html" class="">知识点选题</a>
+                            </div>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="../../smart/categories/index.html" class="nav-tit ">智能组卷</a>
+                            <div class="nav-menu-inner">
+                                <a href="../../smart/categories/index.html" class="">章节智能组卷</a>
+                                <a href="../../smart/knowledges/index.html" class="">知识点智能组卷</a>
+                                <a href="../../smart/spec-list/index.html" class="">双向细目表组卷</a>
+                            </div>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="../sync/index.html" class="nav-tit active">试卷库</a>
+                            <div class="nav-menu-inner"><a href="../sync/index.html" class="">同步试卷类型</a>
+                                <a href="../exam/index.html" class="">测试试卷类型</a>
+                                <a href="index.html" class="active">真卷/模拟试卷类型</a>
+                            </div>
+                        </li>
+                        <li class="nav-menu"><a href="../../subject/list/index.html" class="nav-tit ">专题特供</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="crumbs g-cw">
+        <i class="iconw-fixed"></i><span>当前位置：</span>
+        <a href="javascript:;">试卷库</a><span>&gt;</span>
+        <a href="javascript:;">真题/模拟试卷类型</a><span>&gt;</span><a href="javascript:;">初中数学</a>
+    </div>
+    <div class="m-wrap g-cw cfx J_main">
+        <div class="g-sd">
+            <div class="list-sd-tree JV_tree">
+                <div class="JV_tree_hd list-tree-mt">
+                    <div class="mt-hd clearfix">真卷/模拟试卷类型</div>
+                </div>
+                <div class="JV_tree_bd t-tree">
+                    <div class="t-tree-bd">
+                        <ul class="t-bd">
+                            <li class="t-end">
+                                <div class="t-tit selected"><span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a data-menuid="" href="javascript:;">全部</a></div>
+                                </div>
+                            </li>
+                            <li class="t-end">
+                                <div class="t-tit "><span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a data-menuid="7" href="javascript:;">中考模拟</a></div>
+                                </div>
+                            </li>
+                            <li class="t-end">
+                                <div class="t-tit "><span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a data-menuid="8" href="javascript:;">中考真卷</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w fl">
+            <div class="g-mn">
+                <div class="filter-box cfx JV_filter_box">
+                    <div class="FilterSelectView filter-item cfx"><span class="mt">  年份： </span>
+                        <div class="w fl">
+                            <div class="mc hide-mc">
+                                <ul class="filter-item-wrap cfx ">
+                                    <li><a class="active" data-param="paperyear=">全部</a></li>
+                                    <li><a class="" data-param="paperyear=2018">2018</a></li>
+                                    <li><a class="" data-param="paperyear=2017">2017</a></li>
+                                    <li><a class="" data-param="paperyear=2016">2016</a></li>
+                                    <li><a class="" data-param="paperyear=2015">2015</a></li>
+                                    <li><a class="" data-param="paperyear=2014">2014</a></li>
+                                    <li><a class="" data-param="paperyear=2013">2013</a></li>
+                                    <li><a class="" data-param="paperyear=2012">2012</a></li>
+                                    <li><a class="" data-param="paperyear=2011">2011</a></li>
+                                    <li><a class="" data-param="paperyear=2010">2010</a></li>
+                                    <li><a class="" data-param="paperyear=2009">2009</a></li>
+                                </ul>
+                                <div class="filter-more" style="display: block;"><span><i class="iconw-more-down-tiggle"></i>更多</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FilterSelectView filter-item cfx"><span class="mt">  适用地区： </span>
+                        <div class="w fl">
+                            <div class="mc hide-mc">
+                                <ul class="filter-item-wrap cfx ">
+                                    <li><a class="active" data-param="province_id=">全国</a></li>
+                                    <li><a class="" data-param="province_id=1">北京市</a></li>
+                                    <li><a class="" data-param="province_id=2">天津市</a></li>
+                                    <li><a class="" data-param="province_id=3">河北省</a></li>
+                                    <li><a class="" data-param="province_id=4">山西省</a></li>
+                                    <li><a class="" data-param="province_id=5">内蒙古</a></li>
+                                    <li><a class="" data-param="province_id=6">辽宁省</a></li>
+                                    <li><a class="" data-param="province_id=7">吉林省</a></li>
+                                    <li><a class="" data-param="province_id=8">黑龙江</a></li>
+                                    <li><a class="" data-param="province_id=9">上海市</a></li>
+                                    <li><a class="" data-param="province_id=10">江苏省</a></li>
+                                    <li><a class="" data-param="province_id=11">浙江省</a></li>
+                                    <li><a class="" data-param="province_id=12">安徽省</a></li>
+                                    <li><a class="" data-param="province_id=13">福建省</a></li>
+                                    <li><a class="" data-param="province_id=14">江西省</a></li>
+                                    <li><a class="" data-param="province_id=15">山东省</a></li>
+                                    <li><a class="" data-param="province_id=16">河南省</a></li>
+                                    <li><a class="" data-param="province_id=17">湖北省</a></li>
+                                    <li><a class="" data-param="province_id=18">湖南省</a></li>
+                                    <li><a class="" data-param="province_id=19">广东省</a></li>
+                                    <li><a class="" data-param="province_id=20">广西</a></li>
+                                    <li><a class="" data-param="province_id=21">海南省</a></li>
+                                    <li><a class="" data-param="province_id=22">重庆市</a></li>
+                                    <li><a class="" data-param="province_id=23">四川省</a></li>
+                                    <li><a class="" data-param="province_id=24">贵州省</a></li>
+                                    <li><a class="" data-param="province_id=25">云南省</a></li>
+                                    <li><a class="" data-param="province_id=26">西藏</a></li>
+                                    <li><a class="" data-param="province_id=27">陕西省</a></li>
+                                    <li><a class="" data-param="province_id=28">甘肃省</a></li>
+                                    <li><a class="" data-param="province_id=29">青海省</a></li>
+                                    <li><a class="" data-param="province_id=30">宁夏</a></li>
+                                    <li><a class="" data-param="province_id=31">新疆</a></li>
+                                    <li><a class="" data-param="province_id=32">台湾</a></li>
+                                    <li><a class="" data-param="province_id=33">香港</a></li>
+                                    <li><a class="" data-param="province_id=34">澳门</a></li>
+                                    <li><a class="" data-param="province_id=35">海外</a></li>
+                                    <li><a class="" data-param="province_id=36">其他</a></li>
+                                </ul>
+                                <div class="filter-more" style="display: block;"><span><i class="iconw-more-down-tiggle"></i>更多</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 10px;">&nbsp;</div>
+                <div class="bank-list mt0 J_paper_items">
+                    <div class="loading-wrap" style="display: none;">
+                        <div class="loading-bg"></div>
+                        <div class="loading"></div>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1069291" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1069291" traget="_blank" title="吉林省东北师范大学附属中学2018届九年级下学期数学中考一模试卷">吉林省东北师范大学附属中学2018届九年级下学期数学中考一模试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：47</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1069291)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1069291)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1069281" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc">
+                                        <h3 class="item-tit"><a href="/paper/view/1069281" traget="_blank" title="湖北省马坪镇中心中学2018届数学中考二模试卷">湖北省马坪镇中心中学2018届数学中考二模试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：35</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act"><a class="download-btn"
+                                                         onclick="Application.popupPaperDownload(1069281)">下载</a> <a
+                                        class="fun-btn" onclick="Application.AnalyzeChart.show(1069281)"><span
+                                        class="iconw-fenxi2"></span>试卷分析</a></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1069277" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc">
+                                        <h3 class="item-tit"><a href="/paper/view/1069277" traget="_blank" title="黑龙江省哈尔滨市平房区2018届九年级中考调研测试数学试卷（一）">黑龙江省哈尔滨市平房区2018届九年级中考调研测试数学试卷（一）</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：39</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1069277)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1069277)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1033837" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc">
+                                        <h3 class="item-tit"><a href="/paper/view/1033837" traget="_blank" title="浙江省湖州市2018届九年级数学中考模拟试卷">浙江省湖州市2018届九年级数学中考模拟试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：44</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1033837)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1033837)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1033791" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc">
+                                        <h3 class="item-tit"><a href="/paper/view/1033791" traget="_blank" title="天津市宁河区2018届九年级下学期数学第一次联考试卷">天津市宁河区2018届九年级下学期数学第一次联考试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：38</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1033791)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1033791)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1033787" traget="_blank"><span class="icon iconf-moni"></span></a>
+                                </div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1033787" traget="_blank" title="天津市红桥区2018届数学中考模拟试卷">天津市红桥区2018届数学中考模拟试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：38</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1033787)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1033787)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1033745" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1033745" traget="_blank" title="内蒙古鄂尔多斯市东胜区2018届数学中考一模试卷">内蒙古鄂尔多斯市东胜区2018届数学中考一模试卷</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：36</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1033745)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1033745)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1032253" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1032253" traget="_blank" title="湖北省仙桃市西流河镇初级中学2018届数学中考模拟试卷（一）">湖北省仙桃市西流河镇初级中学2018届数学中考模拟试卷（一）</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：40</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1032253)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1032253)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1032209" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1032209" traget="_blank" title="湖北省潜江市张金镇铁匠沟初级中学2018届数学中考模拟试卷（一）">湖北省潜江市张金镇铁匠沟初级中学2018届数学中考模拟试卷（一）</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：40</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1032209)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1032209)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-wrap">
+                                <div class="item-img"><a href="/paper/view/1032203" traget="_blank"><span class="icon iconf-moni"></span></a></div>
+                                <div class="w fl">
+                                    <div class="item-mc"><h3 class="item-tit">
+                                        <a href="/paper/view/1032203" traget="_blank" title="湖北省荆门市东宝区中学2018届数学中考模拟试卷（一）">湖北省荆门市东宝区中学2018届数学中考模拟试卷（一）</a></h3>
+                                        <div class="item-attr">
+                                            <span><i class="iconw-time"></i>修改时间：2018-07-13</span>
+                                            <span><i class="iconw-eye1"></i>浏览次数：44</span>
+                                            <span><i class="iconw-leixing"></i>类型：中考模拟</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-act">
+                                    <a class="download-btn" onclick="Application.popupPaperDownload(1032203)">下载</a>
+                                    <a class="fun-btn" onclick="Application.AnalyzeChart.show(1032203)"><span class="iconw-fenxi2"></span>试卷分析</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="page-wrap JV_page">
+                    <form class="PageView">
+                        <div class="pagenum">
+                            <a data-page="1" href="javascript:;" class="current">1</a>
+                            <a data-page="2"
+                               href="/paper/paper-exam-list?xd=2&amp;chid=3&amp;papertype=&amp;province_id=&amp;paperyear=&amp;page=2&amp;_=1531725646504&amp;per-page=10">2</a>
+                            <a data-page="3"
+                               href="/paper/paper-exam-list?xd=2&amp;chid=3&amp;papertype=&amp;province_id=&amp;paperyear=&amp;page=3&amp;_=1531725646504&amp;per-page=10">3</a>
+                            <a data-page="4"
+                               href="/paper/paper-exam-list?xd=2&amp;chid=3&amp;papertype=&amp;province_id=&amp;paperyear=&amp;page=4&amp;_=1531725646504&amp;per-page=10">4</a>
+                            <a data-page="5"
+                               href="/paper/paper-exam-list?xd=2&amp;chid=3&amp;papertype=&amp;province_id=&amp;paperyear=&amp;page=5&amp;_=1531725646504&amp;per-page=10">5</a>
+                            <a data-page="2"
+                               href="/paper/paper-exam-list?xd=2&amp;chid=3&amp;papertype=&amp;province_id=&amp;paperyear=&amp;page=2&amp;_=1531725646504&amp;per-page=10">下一页</a>
+
+                            <input style="
+                border: 1px solid #dcdcdc;
+                color: #333;
+                display: inline-block;
+                font-size: 12px;
+                height: 32px;
+                width: 30px;
+                line-height: 32px;
+                margin: 0 5px;
+                padding: 0 5px;
+                text-align: center;
+                white-space: nowrap;" name="page" onkeyup="toPaperNum(this)" type="text" value="1">
+                            <button type="submit" id="paper-jump" class="current">跳转</button>
+                            <script>
+                                function toPaperNum(ob) {
+                                    var v = parseInt($.trim(ob.value).toString().replace(/\D/, '').substr(0, 4)) || 0;
+                                    ob.value = v ? v : '';
+                                }
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer FootView">
+        <div class="g-cw">
+            <div class="footer-bd cfx">
+                <div class="footer-item"><h3>公司介绍</h3>
+                    <p>Company Introduction</p>
+                    <ul class="w50">
+                        <li><a href="//www.21cnjy.com/about/about_about.php" target="_blank"><b></b>公司简介</a></li>
+                        <li><a href="../../help/copyright.html" target="_blank"><b></b>版权声明</a></li>
+                        <li><a href="//www.21cnjy.com/about/about_company-news.php" target="_blank"><b></b>公司动态</a></li>
+                        <li><a href="../../help/feedback.html" target="_blank"><b></b>意见反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item"><h3>服务介绍</h3>
+                    <p>Service Introduction</p>
+                    <ul>
+                        <li><a href="../../help/zujuan.html" target="_blank"><b></b>组卷通服务</a></li>
+                        <li><a href="../../help/vip.html" target="_blank"><b></b>VIP会员服务</a></li>
+                        <li><a href="../../help/diy.html" target="_blank"><b></b>学校定制化服务</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item"><h3>帮助中心</h3>
+                    <p>Help center</p>
+                    <ul class="w50">
+                        <li><a href="../../help/demo.html" target="_blank"><b></b>视频帮助</a></li>
+                        <li><a href="../../help/faq.html" target="_blank"><b></b>常见问题</a></li>
+                        <li><a href="../../help/makepaper.html" target="_blank"><b></b>如何组卷</a></li>
+                        <li><a href="../../help/download.html" target="_blank"><b></b>下载试卷</a></li>
+                        <li><a href="../../help/test.html" target="_blank"><b></b>在线测试</a></li>
+                        <li><a href="../../new.html" target="_blank"><b></b>最新试题</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <div class="ewm-box"><img src="../../build/images/ewm1.png">
+                        <p><a href="javascript:;">二一教育</a></p></div>
+                </div>
+                <div class="footer-item">
+                    <div class="contact-msg"><h4>400-637-9991</h4>
+                        <p>周一至周五 8:30-17:30</p></div>
+                    <a href="javascript:;" class="contact-btn jBizQQWPA"><i class="iconw-qq"></i>在线咨询客服</a></div>
+            </div>
+            <div class="footer-adress">
+                <p>2006-2018 二一教育股份有限公司 <a>粤ICP备11039084号 </a> 粤教信息(2013)2号 </p>
+                <p><span>邮编：518000</span> <span>地址：深圳市龙岗区横岗街道深峰路3号启航商务大厦5楼5M</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="BasketView"></div>
+</div>
+<!--[if lt IE 9]>
+<link href="../../../static.21cnjy.com/kill-ie/kill-ie.css" rel="stylesheet" type="text/css">
+<script src="../../../static.21cnjy.com/kill-ie/kill-ie.js"></script>
+<![endif]-->
+
+
+<script> document.body.removeChild(document.getElementById('oes')); </script>
+<script src="../../../static.21cnjy.com/json2/json2.js"></script>
+<script src="../../../static.21cnjy.com/js/underscore-1.8.3.min.js"></script>
+<script src="../../../static.21cnjy.com/js/backbone-1.3.3.min.js"></script>
+<script src="../../../static.21cnjy.com/backbone-query-parameters/backbone.queryparams.min.js"></script>
+<script src="../../../static.21cnjy.com/artDialog/dist/dialog-plus.js"></script>
+<script src="../../../static.21cnjy.com/js/moment.js"></script>
+<script src="../../../static.21cnjy.com/js/moment-zh-cn.js"></script>
+<script src="../../../static.21cnjy.com/js/highcharts.js"></script>
+<script src="../../../static.21cnjy.com/js/raphael.min.js"></script>
+<script src="../../../static.21cnjy.com/js/jquery.md5.js"></script>
+<script src="../../../static.21cnjy.com/js/jquery.serializejson.min.js"></script>
+<script src="../../../static.21cnjy.com/js/jquery.cookie-1.4.1.min.js"></script>
+<script src="../../../static.21cnjy.com/superslide/jquery.SuperSlide.2.1.1.js"></script>
+<script src="../../lib/ckeditor2/ckeditor.js"></script>
+<script src="../../lib/texzilla.js"></script>
+<script src="../../lib/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js">
+    <
+    script > CKEDITOR.config.customConfig = 'config-custom.js'; </script>
+<script src="../../build/js/jst.js?v=0f992dab64"></script>
+<script src="../../build/js/app.js?v=c5f59b2cb0"></script>
+<script src="../../build/js/common.js?v=19a6c43abf"></script>
+<script src="../../build/js/module.js?v=8940b2565d"></script>
+<script>
+
+    $(document).ajaxError(function (t, i, n) {
+        if (401 == i.status && i.responseText) if (dialog) {
+            var o = dialog({id: "_dialog_ajax_verify_intercept", content: i.responseText, title: "安全验证"});
+            window._ajax_verify_success_callback = function () {
+                o.remove(), $.ajax(n)
+            }, o.showModal()
+        } else alert("无权限操作，请联系管理员！")
+    });
+
+    Application.bootstrap();
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+</html>

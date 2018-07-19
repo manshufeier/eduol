@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit"><!--用在360中-->
+    <meta name="force-rendering" content="webkit"><!--用在其它-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="build/images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="build/images/touchicon.png"/>
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token"
+          content="2-b2M5Hgkv--m0qcA96ORtS1sIGcML1NgrqpKM5W30a-ua4exoO_yIzsIelwvbZyjfjzzPJb6n3A5f5muAaaMg==">
+    <title>组卷申请</title>
+    <script>
+        (function (doc, win) {
+            // 基于 window.screen.width 实现自适应布局
+            var screenWidth = 0,
+                size = 'XL',
+                root = doc.documentElement;
+            if (window.screen && screen.width) {
+                screenWidth = screen.width;
+                if (screenWidth >= 1200) size = 'XL'; // 大屏 - 1200px         
+                else if (screenWidth < 1200) size = 'XS'; // 小屏 - 1000px
+            }
+            root.className += " " + size; // 标记CSS
+            win.SIZE = size; // 标记JS        
+        })(document, window);
+
+        window.OT2 = {}; // 全局命名空间
+        OT2.AboveIE9 = true; // 默认非iE或IE9及以上
+        OT2.ns = function (name) {
+            var container = OT2;
+            var parts = name.split('.');
+            var current = '';
+            if (parts[0] == 'OT2') parts.shift();
+            while (current = parts.shift()) {
+                if (!container[current]) container[current] = {};
+                container = container[current];
+            }
+            return container;
+        };
+        var HostInfo = "https://zujuan.21cnjy.com";
+        USER = {};//通知js用户的信息
+        OT2.CSRF = {"_csrf": "2-b2M5Hgkv--m0qcA96ORtS1sIGcML1NgrqpKM5W30a-ua4exoO_yIzsIelwvbZyjfjzzPJb6n3A5f5muAaaMg=="};
+    </script>
+    <!--[if lt IE 9]>
+    <script> OT2.AboveIE9 = false;</script>
+    <![endif]-->
+    <link rel="stylesheet" href="build/css/base.min.css?v=4f7c7cb766"/>
+    <link rel="stylesheet" href="build/css/spriter-mix.min.css?v=80f126dde1"/>
+    <link rel="stylesheet" href="build/lib/artDialog/css/ui-dialog.css"/>
+    <link rel="stylesheet" href="build/css/artDialog-skin-ot2.min.css"/>
+    <link rel="stylesheet" href="build/css/main.min.css?v=7c0556f292"/>
+    <link rel="stylesheet" href="build/css/popup.min.css?v=7e4552876c"/>
+    <script src="lib/jquery.min.js?v=0673f7f55b"></script>
+    <script type="text/javascript">$.ajaxSetup({cache: false});</script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="build/js/cookie.min.js?v=cb2827edb0"></script>
+    <script src="lib/json3.min.js"></script>
+    <script src="lib/artDialog/dist/dialog-plus.js"></script>
+    <script src="build/js/artDialog-config.min.js"></script>
+    <script src="build/js/element.min.js?v=3dd7e180e7"></script>
+    <script src="build/js/localdata.min.js?v=ea1de51aee"></script>
+    <script src="build/js/util.min.js?v=ed356ca9c2"></script>
+    <script src="build/js/global.min.js?v=f06f3147ac"></script>
+</head>
+
+
+<body>
+<!--[if lt IE 7]>
+<link href="../static.21cnjy.com/kill-ie/kill-ie.css" rel="stylesheet" type="text/css">
+<script src="../static.21cnjy.com/kill-ie/kill-ie.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="build/css/header.1.min.css">
+<style>
+
+    .co-partner--logo--inner {
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: visible;
+        font-weight: bold;
+        display: inline-block;
+        font-family: Microsoft YaHei;
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .co-partner--logo--inner span {
+        margin-top: 15px;
+        color: #fff;
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    .co-partner--logo--inner img {
+        width: 45px;
+        height: 45px;
+    }
+</style>
+
+<script>
+    $(function () {
+        var toNote = '';
+
+        if (toNote) {
+            var notice = null;
+            var d = dialog({
+                title: '提醒',
+                content: '<div class="email-con"><h1>' + notice[0] + '</h1><p>' + notice[1] + '</p></div>',
+                fixed: true,
+                cancelValue: '取消',
+                cancel: function () {
+                }
+            });
+            d.showModal();
+        }
+
+        // 搜索类型切换
+        $('.new-search-type').hover(function () {
+            $('.new-search-list').show();
+        }, function () {
+            $('.new-search-list').hide();
+        })
+        $(".new-search-list").on('click', 'li', function (evt) {
+            var $el = $(evt.currentTarget);
+            $el.find('input[name=type]').prop('checked', true);
+            $('.searc-txt').text($el.find('span').text());
+            $el.siblings().find('input[name=type]').prop('checked', false);
+            $('.new-search-list').hide();
+        })
+
+        $('#J_submit').click(function () {
+            if ($.trim($(this).parents('.search').find('.search-inputtxt').val()) == '') {
+                return false;
+            }
+        })
+    })
+</script>
+
+<div class="top-inner-head">
+    <div class="g-cw top-head-bd cfx">
+        <div class="fl inner-logo">
+            <a href="/#"><img src="build/images/test_logo_w.png"></a>
+        </div>
+        <div class="w fl J_top_search_form">
+            <div class="searchbox-bd">
+                <form class="search-form" action="/#search" method="GET">
+                    <div class="search-wrap cfx">
+                        <div class="new-search-type">
+                            <span class="search-select">
+                                <em class="searc-txt">试卷</em>
+                                <i class="iconw-search-down"></i>
+                            </span>
+                            <ul class="new-search-list">
+                                <li>
+                                    <input type="radio" name="type" value="paper" style="display: none;">
+                                    <span>试卷</span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="type" value="question" style="display: none;">
+                                    <span>试题</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="search">
+                            <input type="hidden" name="top_search" value="1"/>
+                            <input type="text" name="content" class="search-inputtxt" value="" placeholder="请输入搜索关键词">
+                            <span class="btn-search">         
+                                <button type="submit" id="J_submit"><i class="iconw-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <ul class="top-nav-cn fr">
+            <li class="p-20">
+                <a href="index.html" class="menu-tit">网站首页</a>
+            </li>
+            <li class="sep"></li>
+            <li class="p-20">
+                <a href="help.html" class="menu-tit">帮助中心</a>
+            </li>
+            <li class="sep"></li>
+            <li class="menu-item">
+                <a href="vip.html" class="menu-tit" target="_blank"><span>购买服务<i
+                        class="iconw-search-down-w"></i></span></a>
+                <div class="menu-item-inner">
+                    <a href="vip.html" target="_blank">VIP服务</a>
+                    <a href="request.html" target="_blank">组卷通服务</a>
+                    <a href="login.html" target="_blank">激活VIP</a>
+                </div>
+            </li>
+            <li class="sep"></li>
+            <li class="menu-item">
+                <a href="javascript:;" class="menu-tit" target="_blank"><span>旗下站点<i
+                        class="iconw-search-down-w"></i></span></a>
+                <div class="menu-item-inner">
+                    <a href="https://www.21cnjy.com/zhitongche/index" target="_blank">校网通</a>
+                    <a href="http://www.jbzyk.com" target="_blank">校本资源库</a>
+                    <a href="http://tiku.21cnjy.com/" target="_blank">在线题库</a>
+                    <a href="https://www.21cnjy.com/video.php" target="_blank">名师课堂</a>
+                    <a href="https://www.21cnjy.com/productshow/index.php?prod=school" target="_blank">数字化校园</a>
+                    <a href="https://www.21cnjy.com/productshow/index.php?prod=yun" target="_blank">区域云平台</a>
+                    <a href="https://www.21cnjy.com/productshow/app/" target="_blank">二一教育APP</a>
+                </div>
+            </li>
+            <li class="sep"></li>
+            <!--登录前-->
+            <li class="login-item">
+                <a shref="/login" class="top-login-item" onclick="OT2.Global.initLogin(); return false;"><span>登录</span></a>
+                <a href="http://passport.21cnjy.com/site/register?jump_url=http://zujuan.21cnjy.com/help/request"
+                   class="top-register-item"><span>注册</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="g-container f-cb req-container">
+    <iframe class="g-container" height="780px" frameborder="no" allowtransparency="yes" marginheight="0" marginwidth="0"
+            scrolling="0" border="0" src="https://www.21cnjy.com/about/about_products-buy.php?testAPI=1"></iframe>
+</div>
+<!--footer开始-->
+
+<div class="footer">
+    <div class="footer-con g-container">
+        <div class="footer-top f-cb">
+            <div class="con-gs">
+                <h3>公司介绍</h3>
+                <p>Company Introduction</p>
+                <ul>
+                    <li><i class="icona-ellipse"></i><a href="http://www.21cnjy.com/about/about_about.php" target="_blank">公司简介</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/copyright.html" target="_blank">版权声明</a></li>
+                    <li><i class="icona-ellipse"></i><a href="http://www.21cnjy.com/about/about_company-news.php" target="_blank">公司动态</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/feedback.html" target="_blank">意见反馈</a></li>
+                </ul>
+            </div>
+            <div class="con-fw">
+                <h3>服务介绍</h3>
+                <p>Service Introduction</p>
+                <ul class="fw-list">
+                    <li><i class="icona-ellipse"></i><a href="help/zujuan.html" target="_blank">组卷通服务</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/vip.html" target="_blank">VIP会员服务</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/diy.html" target="_blank">学校定制化服务</a></li>
+                </ul>
+            </div>
+            <div class="con-bz">
+                <h3>帮助中心</h3>
+                <p>Help center</p>
+                <ul>
+                    <li><i class="icona-ellipse"></i><a href="help/demo.html" target="_blank">视频帮助</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/faq.html" target="_blank">常见问题</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/makepaper.html" target="_blank">如何组卷</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/download.html" target="_blank">下载试卷</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/test.html" target="_blank">在线测试</a></li>
+                    <li><i class="icona-ellipse"></i><a href="help/new.html" target="_blank">最新试题</a></li>
+                </ul>
+            </div>
+            <div class="con-ewm">
+                <img src="build/images/ewm.png" style="width:80px" alt="二一教育APP"/>
+                <p>二一教育APP</p>
+            </div>
+            <div class="con-lx">
+                <i class="icona-phone"></i>
+                <div class="lx-txt">
+                    <p class="lx-txt-p1">400-637-9991</p>
+                    <p class="lx-txt-p2">周一至周五 8:30-17:30</p>
+                </div>
+                <div class="lx-teacher">
+                    <a href="javascript:;" id="jBizQQWPA"><i class="icona-kefu"></i>在线咨询客服</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">2006-2016 二一教育股份有限公司<a href="http://www.miibeian.gov.cn/"
+                                                        class="copy">粤ICP备11039084号</a> 粤教信息(2013)2号</p>
+            <p class="footer-adress">
+                <span>邮编：518000</span>
+                <span>地址：深圳市龙岗区横岗街道深峰路3号启航商务大厦5楼5M</span>
+            </p>
+        </div>
+    </div>
+</div>
+<!--footer结束-->
+<div id="Login_Pal" style="display: none">
+    <link rel="stylesheet" href="build/css/reg.min.css?v=3433714ba6"/>
+    <style>
+        .reg-form {
+            z-index: 1110;
+            left: 50%;
+            margin-left: -180px;
+            top: 0;
+        }
+
+        .reg-mask {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: #000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            z-index: 1000;
+        }
+
+        .reg-form .btn-close {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            display: block;
+            text-indent: -9999px;
+            width: 24px;
+            height: 24px;
+            background: url(/images/close_24.png) no-repeat center center;
+        }
+
+        .reg-form .btn-close:hover {
+            opacity: 0.8;
+        }
+    </style>
+    <div class="reg-mask"></div>
+    <div class="reg-form">
+        <ul>
+            <li>
+                <a href="javascript:;" class="reg-active">登录</a>
+            </li>
+        </ul>
+        <a class="btn-close J_CloseForm">x</a>
+        <form id="J_LoginForm" class="reg-form-detail" action="/login" method="post">
+            <input type="hidden" name="_csrf"
+                   value="2-b2M5Hgkv--m0qcA96ORtS1sIGcML1NgrqpKM5W30a-ua4exoO_yIzsIelwvbZyjfjzzPJb6n3A5f5muAaaMg==">
+            <div class="reg-form-input">
+                <label for="account" class="placeholder">请输入网站账号/手机号码/邮箱</label>
+                <input type="text" name="LoginForm[username]" id="account" placeholder="请输入网站账号/手机号码/邮箱">
+                <div class="fm-warn"><p></p><i></i></div>
+
+            </div>
+            <div class="reg-form-input">
+                <label for="password" class="placeholder">请输入密码</label>
+                <input type="password" name="LoginForm[password]" id="password" placeholder="请输入密码">
+                <div class="fm-warn"><p></p><i></i></div>
+
+            </div>
+            <div class="login-line">
+                <div class="login-auto">
+                    <span class="checkbox checked f-usn" onselectstart="return false"><i class="icona-check"></i><input
+                            type="checkbox" checked="" value="1" class="f-dn" name="LoginForm[rememberMe]">自动登录</span>
+                </div>
+                <div class="login-pwd">
+                    <a href="http://passport.21cnjy.com/site/password-find?jump_url=http://zujuan.21cnjy.com/help/request"
+                       target="_blank">忘记密码</a>
+                </div>
+            </div>
+            <div class="reg-btn">
+                <button type="submit">登录</button>
+            </div>
+        </form>
+        <div class="login-others">
+            <div class="login-others-method">其它登录方式：
+                <a href="http://passport.21cnjy.com/site/show-qr-code?jump_url=http://zujuan.21cnjy.com/help/request"><i
+                        class="icona-wxloginbtn"> </i></a>
+                <a href="http://21cnjy.com/qqconnect?jump_url=http://zujuan.21cnjy.com/help/request"><i
+                        class="icona-qqloginbtn"> </i></a>
+            </div>
+            <div class="login-reg"><a target="_blank"
+                                      href="http://passport.21cnjy.com/site/register?jump_url=http://zujuan.21cnjy.com/help/request">免费注册<i
+                    class="icona-right-arrow"></i></a></div>
+
+        </div>
+    </div>
+</div>
+<script src="build/js/element.min.js?v=3dd7e180e7"></script>
+<script src="build/js/field.min.js?v=e58a94a2c7"></script>
+<script src="build/js/user.min.js?v=2a18d195be"></script>
+<!--
+<div class="g-container f-cb req-container">
+    <div class="w">
+        <div class="req-form">
+            <form action="http://www.21cnjy.com/about/about_products-buy.php" id="request-form" method="post">
+                <h2 class="fm-tit">申请人相关信息<strong>（请确保信息的真实有效，否则申请无效）</strong></h2>
+                <fieldset>
+                    <div class="fm-row">
+                        <label for="">申请人姓名：</label>
+                        <input name="proposer" type="text" data-valid="name|require"/>
+                        <span class="fm-error">*学生申请无效</span>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">联系手机：</label>
+                        <input name="phone" type="text" data-valid="mobile|require|mobile"/>
+                        <span class="fm-error">*建议填写您的手机，便于我方联系确认</span>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">联系人QQ：</label>
+                        <input name="qq" type="text" data-valid="qq|require|qq"/>
+                        <span class="fm-error">*必须通讯工具，方便解决问题</span>
+                    </div>
+                </fieldset>
+                <h2 class="fm-tit">申请人学校信息</h2>
+                <fieldset>
+                    <div class="fm-row">
+                        <label for="">学校名称：</label>
+                        <input name="schoolname" type="text"/>
+                    </div>
+                    <div class="fm-row">
+                        <label for="province">地区筛选：</label>
+                        <select name="" id="" onchange="get_district(this)" >
+                            <option value="" >全国</option><option value="1" >北京市</option><option value="2" >天津市</option><option value="3" >河北省</option><option value="4" >山西省</option><option value="5" >内蒙古</option><option value="6" >辽宁省</option><option value="7" >吉林省</option><option value="8" >黑龙江</option><option value="9" >上海市</option><option value="10" >江苏省</option><option value="11" >浙江省</option><option value="12" >安徽省</option><option value="13" >福建省</option><option value="14" >江西省</option><option value="15" >山东省</option><option value="16" >河南省</option><option value="17" >湖北省</option><option value="18" >湖南省</option><option value="19" >广东省</option><option value="20" >广西</option><option value="21" >海南省</option><option value="22" >重庆市</option><option value="23" >四川省</option><option value="24" >贵州省</option><option value="25" >云南省</option><option value="26" >西藏</option><option value="27" >陕西省</option><option value="28" >甘肃省</option><option value="29" >青海省</option><option value="30" >宁夏</option><option value="31" >新疆</option>
+
+                        </select>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">学校班级数目：</label>
+                        <input name="class_num" type="text" data-valid="num1|require|int">
+                        <span class="fm-error">*贵校的班级数据，只能填数字</span>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">学校老师人数：</label>
+                        <input name="teacher_num" type="text" data-valid="num2|require|int">
+                        <span class="fm-error">*贵校的老师人数，只能填数字</span>
+                    </div>
+                    <div class="fm-row f-cb">
+                        <label for="">学校学段：</label>
+                        <div class="checkbox f-usn">
+                            <label for=""><input value="1"   name="xueduan[]" type="checkbox"> 小学</label>
+                            <label for=""><input value="2"   name="xueduan[]" type="checkbox"> 初中</label>
+                            <label for=""><input value="3"   name="xueduan[]" type="checkbox"> 高中</label>
+                        </div>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">负责人姓名：</label>
+                        <input name="principal_info" type="text" data-valid="name2|require">
+                        <span class="fm-error">*负责学校教务的主任或者校长</span>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">负责人职务：</label>
+                        <input name="principal_info" type="text" data-valid="duty|require">
+                        <span class="fm-error">*如教导主任、校长</span>
+                    </div>
+                    <div class="fm-row">
+                        <label for="">负责人电话：</label>
+                        <input name="principal_tell" type="text" data-valid="phone|require">
+                        <span class="fm-error">*填写手机或固定电话（注明区号，分机）</span>
+                    </div>
+                </fieldset>
+                <input type="hidden" value="2" name="prod[]">
+                <button type="submit" class="fm-submit">申请使用</button>
+            </form>
+        </div>
+    </div>
+    <div class="req-desc f-fl">
+        <div class="fm-tit">申请说明</div>
+        <ol>
+            <li><span>1、</span>产品在线申请只针对学校单位用户开放，每个学校只限一次免费使用机会，试用期为10天。</li>
+            <li><span>2、</span>贵校多媒体设施完善，办公电脑充足，有统一的上网出口IP，以便开通权限。</li>
+            <li><span>3、</span>申请人或联系人最好是学校领导或其委托人。</li>
+            <li><span>4、</span>表格填写有任何疑问，可联系刘老师QQ：75423717，<br/>或致电：17722424559.</li>
+            <li><span>5、</span>如有特别注意事项请在“申请人备注”说明。</li>
+            <li><span>6、</span>我们收到申请后将会在1-3个工作日内审核。</li>
+            <li><span>7、</span>申请使用的最终解释权，归二一教育所有。</li>
+            <li><span></span>（工作时间：周一至周五 8:30-5:30）</li>
+        </ol>
+        <div class="fm-tit">申请流程</div>
+        <div class="follow-img"><img src="/images/follow-req.png" alt=""></div>
+    </div>
+</div>
+-->
+<script>
+    ;
+    (function () {
+        var Event = $({});
+        var parseRules = function (data) {
+            var arr = data.split('|');
+            var field = arr[0];
+            var args = arr.slice(1);
+            var obj = [];
+            $.each(args, function (i, v) {
+                var _arr = v.split(':');
+                var _args = _arr.slice(1);
+                obj[obj.length] = {key: _arr[0], args: _args};
+            });
+            return obj;
+        };
+        var checkRules = function (rules, val, cb) {
+            var res = true;
+            for (var i = 0, len = rules.length; i < len; i++) {
+                var item = rules[i];
+                var key = item.key;
+                var args = item.args;
+                switch (key) {
+                    case 'require':
+                        if (val.length <= 0) res = false;
+                        break;
+                    case 'int':
+                        if (!/^\d+$/.test(val)) res = false;
+                        break;
+                    case 'qq':
+                        if (!/\d{6,15}/.test(val)) res = false;
+                        break;
+                    case 'mobile':
+                        if (!/^(13[0-9]|15[0-9]|18[0-9]|14[57])\d{8}$/.test(val)) res = false;
+                        break;
+                }
+                if (!res) break;
+            }
+            return res;
+        };
+        var makeError = function ($el, status) {
+            if (status) {
+                $el.closest('.fm-row').addClass('fm-ok');
+                $el.closest('.fm-row').removeClass('fm-fail');
+            }
+            else {
+                $el.closest('.fm-row').removeClass('fm-ok');
+                $el.closest('.fm-row').addClass('fm-fail');
+            }
+        };
+        var clearError = function () {
+        };
+        Event.on('validate', function (event, el, result) {
+            var rules = parseRules($(el).data('valid'));
+            var val = $.trim(el.value);
+            var res = checkRules(rules, val);
+            makeError($(el), res);
+            if (typeof result !== 'undefined' && !res) result.push(res);
+
+        });
+        $('input[data-valid]').each(function () {
+            $(this).on('keyup blur', function () {
+                Event.trigger('validate', this);
+
+            });
+        });
+
+        $('#request-form').on('submit', function (e) {
+            var result = [];
+            $('input[data-valid]').each(function () {
+                Event.trigger('validate', [this, result]);
+            });
+            if (result.length > 0) return false; // 验证未通过
+        });
+
+
+    })();
+</script>
+<script src="build/js/global.min.js?v=f06f3147ac"></script>
+<a class="return" href="javascript:;" style="right: 126px; display: block;"><i class="icona-top"></i></a>
+<!--<script src="https://wpa.b.qq.com/cgi/wpa.php" type="text/javascript"></script>-->
+<script>
+    //    BizQQWPA.addCustom({aty: '0', a: '0', nameAccount: 4006379991, selector: 'jBizQQWPA'});
+    (function (window, undefined) {
+        try {
+            var document = window.document;
+            document.getElementById('jBizQQWPA').onclick = function () {
+                window.open('http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODE4MjQ4OF80NjM1NzhfNDAwNjM3OTk5MV8yXw&uin=', '_blank', 'height=544, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');
+            }
+        } catch (e) {
+        }
+    }(window));
+</script>
+<script src="assets/ae3cdea7/yii.js"></script>
+<script src="assets/a0edfdbe/js/layer/layer.js"></script>
+</body>
+
+
+</html>

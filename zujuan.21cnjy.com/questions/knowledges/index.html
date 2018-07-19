@@ -1,0 +1,895 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit"><!--用在360中-->
+    <meta name="force-rendering" content="webkit"><!--用在其它-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../build/images/favicon.ico">
+    <meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token"
+          content="vaYwd5oBJyVjO79xNy8Byojdq27D1unYGfwpSgZA8FDoz0A1q1FJFztp1hdcaVGn_YLDAKu-2K8gxFMcNA-ROg==">
+    <title>二一组卷-在线组卷-智能组卷,中小学在线题库</title>
+    <meta name="keywords" content="组卷网,组卷系统,智能组卷">
+    <meta name="description" content="二一组卷提供中小学教师·学生·家长使用的在线组卷系统，可以方便中小学各学科进行章节、知识点、难度筛选条件自由组合组卷！">
+    <link rel="stylesheet" href="//static.21cnjy.com/artDialog/css/ui-dialog.css">
+    <link rel="stylesheet" href="//static.21cnjy.com/artDialog/css/artDialog-skin-ot2.css">
+    <link rel="stylesheet" href="../../build/css/index.css?v=6b81c05ea6">
+    <script src="https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef"></script>
+    <script src="//static.21cnjy.com/js/jquery-1.12.0.min.js"></script>
+    <script>
+        var JST = {}; // js模板集合
+        var Application = {
+            DEF_XD: 2,
+            DEF_CHID: 3,
+            debounceTime: 400
+        };
+        Application.dataState = {
+            query: [],
+            hostInfo: "https://zujuan.21cnjy.com",
+            csrf: {"_csrf": "vaYwd5oBJyVjO79xNy8Byojdq27D1unYGfwpSgZA8FDoz0A1q1FJFztp1hdcaVGn_YLDAKu-2K8gxFMcNA-ROg=="}
+        };
+        var console = console || {};
+        console.log = console.log || function () {
+            document.title = 'IE make it error'
+        }
+        if (!Array.prototype.indexOf) {
+            Array.prototype.indexOf = function (val) {
+                var value = this;
+                for (var i = 0; i < value.length; i++) {
+                    if (value[i] == val) return i;
+                }
+                return -1;
+            };
+        }
+
+    </script>
+    <style>.cke {
+        visibility: hidden;
+    }</style>
+</head>
+<body>
+<div class="QuestionsListView">
+    <div class="HeaderView">
+        <div class="J_top_head">
+            <div class="top-head">
+                <div class="g-cw top-head-bd cfx"><span class="fl slogan">二一教育旗下产品</span>
+                    <ul class="top-nav-cn fr">
+                        <li class="p-20"><a href="../../index.html" class="menu-tit">网站首页</a></li>
+                        <li class="sep"></li>
+                        <li class="p-20"><a href="../../help.html" class="menu-tit">帮助中心</a></li>
+                        <li class="sep"></li>
+                        <li class="menu-item">
+                            <a href="../../vip.html" class="menu-tit" target="_blank"><span>购买服务<i class="iconw-search-down"></i></span></a>
+                            <div class="menu-item-inner"><a href="../../vip.html" target="_blank">VIP服务</a>
+                                <a href="../../request.html" target="_blank">组卷通服务</a>
+                                <a href="../../login.html" target="_blank" class="J_islogin">激活VIP</a>
+                            </div>
+                        </li>
+                        <li class="sep"></li>
+                        <li class="menu-item">
+                            <a href="javascript:;" class="menu-tit" target="_blank"><span>旗下站点<i class="iconw-search-down"></i></span></a>
+                            <div class="menu-item-inner">
+                                <a href="https://www.21cnjy.com/zhitongche/index" target="_blank">校网通</a>
+                                <a href="http://www.jbzyk.com" target="_blank">校本资源库</a>
+                                <a href="http://tiku.21cnjy.com/" target="_blank">在线题库</a>
+                                <a href="https://www.21cnjy.com/video.php" target="_blank">名师课堂</a>
+                                <a href="https://www.21cnjy.com/productshow/index.php?prod=school" target="_blank">数字化校园</a>
+                                <a href="https://www.21cnjy.com/productshow/index.php?prod=yun" target="_blank">区域云平台</a>
+                                <a href="https://www.21cnjy.com/productshow/app/" target="_blank">二一教育APP</a>
+                            </div>
+                        </li>
+                        <li class="sep"></li>      <!--登录前-->
+                        <li class="login-item">
+                            <a class="top-login-item">登录</a>
+                            <a href="../../request.html" class="top-register-item">注册</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="top-search">
+                <div class="g-cw cfx">
+                    <div class="logo-block"><a href="/#"><img src="../../build/images/test_logo.png"></a></div>
+                    <div class="w fl J_top_search_form">
+                        <div class="searchbox-bd">
+                            <form class="search-form" action="/#search" method="GET">
+                                <div class="search-wrap cfx">
+                                    <div class="new-search-type">
+                                        <span class="search-select"><em class="searc-txt">试题</em><i class="iconw-search-down"></i></span>
+                                        <ul class="new-search-list" style="display: none;">
+                                            <li><input type="radio" name="type" value="paper" style="display: none;"><span>试卷</span></li>
+                                            <li><input type="radio" name="type" value="question" checked="" style="display: none;"> <span>试题</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="search">
+                                        <input type="text" name="content" class="search-inputtxt" value="" placeholder="请输入搜索关键词">
+                                        <input type="hidden" name="top_search" value="1">
+                                        <span class="btn-search"><button type="submit" id="J_submit"><i class="iconw-search"></i></button></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="service-block">
+                        <a href="../../vip.html" class="service-item"><img src="../../build/images/VIP.gif"> <strong>VIP申请</strong></a>
+                        <a href="../../request.html" class="service-item"><img src="../../build/images/xwt.gif"> <strong>组卷通申请</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-wrap J_main_nav">
+            <div class="g-cw cfx">
+                <div class="main-cate fl"><a href="javascript:;" class="current"> 当前：<span>初中数学</span> <i
+                        class="iconw-nav-down"></i> </a>
+                    <div class="main-cate-menu">
+                        <div class="item"><h3>小学</h3>
+                            <div class="cfx"><a href="javascript:;" data-xdchid="1,2" class="">语文</a> <a
+                                    href="javascript:;" data-xdchid="1,3" class="">数学</a> <a href="javascript:;"
+                                                                                             data-xdchid="1,4" class="">英语</a>
+                                <a href="javascript:;" data-xdchid="1,5" class="">科学</a> <a href="javascript:;"
+                                                                                            data-xdchid="1,9" class="">政治思品</a>
+                            </div>
+                        </div>
+                        <div class="item"><h3>初中</h3>
+                            <div class="cfx"><a href="javascript:;" data-xdchid="2,2" class="">语文</a> <a
+                                    href="javascript:;" data-xdchid="2,3" class="active">数学</a> <a href="javascript:;"
+                                                                                                   data-xdchid="2,4"
+                                                                                                   class="">英语</a> <a
+                                    href="javascript:;" data-xdchid="2,5" class="">科学</a> <a href="javascript:;"
+                                                                                             data-xdchid="2,6" class="">物理</a>
+                                <a href="javascript:;" data-xdchid="2,7" class="">化学</a> <a href="javascript:;"
+                                                                                            data-xdchid="2,8" class="">历史</a>
+                                <a href="javascript:;" data-xdchid="2,9" class="">政治思品</a> <a href="javascript:;"
+                                                                                              data-xdchid="2,10"
+                                                                                              class="">地理</a> <a
+                                        href="javascript:;" data-xdchid="2,11" class="">生物</a> <a href="javascript:;"
+                                                                                                  data-xdchid="2,20"
+                                                                                                  class="">历史与社会</a> <a
+                                        href="javascript:;" data-xdchid="2,21" class="">社会思品</a></div>
+                        </div>
+                        <div class="item"><h3>高中</h3>
+                            <div class="cfx"><a href="javascript:;" data-xdchid="3,2" class="">语文</a> <a
+                                    href="javascript:;" data-xdchid="3,3" class="">数学</a> <a href="javascript:;"
+                                                                                             data-xdchid="3,4" class="">英语</a>
+                                <a href="javascript:;" data-xdchid="3,6" class="">物理</a> <a href="javascript:;"
+                                                                                            data-xdchid="3,7" class="">化学</a>
+                                <a href="javascript:;" data-xdchid="3,8" class="">历史</a> <a href="javascript:;"
+                                                                                            data-xdchid="3,9" class="">政治思品</a>
+                                <a href="javascript:;" data-xdchid="3,10" class="">地理</a> <a href="javascript:;"
+                                                                                             data-xdchid="3,11"
+                                                                                             class="">生物</a> <a
+                                        href="javascript:;" data-xdchid="3,14" class="">信息技术</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-nav fl">
+                    <ul class="cfx">
+                        <li><a href="../../index.html" class="nav-tit ">首页</a></li>
+                        <li class="nav-menu"><a href="index.html" class="nav-tit active">手动组卷</a>
+                            <div class="nav-menu-inner"><a href="index.html" class="">章节同步选题</a> <a
+                                    href="../knowledges/index.html" class="active">知识点选题</a></div>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="../../smart/categories/index.html" class="nav-tit ">智能组卷</a>
+                            <div class="nav-menu-inner">
+                                <a href="../../smart/categories/index.html" class="">章节智能组卷</a>
+                                <a href="../../smart/knowledges/index.html" class="">知识点智能组卷</a>
+                                <a href="../../smart/spec-list" class="">双向细目表组卷</a>
+                            </div>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="../../papers/sync/index.html" class="nav-tit ">试卷库</a>
+                            <div class="nav-menu-inner">
+                                <a href="../../papers/sync/index.html" class="">同步试卷类型</a>
+                                <a href="../../papers/exam/index.html" class="">测试试卷类型</a>
+                                <a href="../../papers/real/index.html" class="">真卷/模拟试卷类型</a>
+                            </div>
+                        </li>
+                        <li class="nav-menu"><a href="../../subject/list/index.html" class="nav-tit ">专题特供</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="crumbs g-cw">
+        <i class="iconw-fixed"></i><span>当前位置：</span>
+        <a href="javascript:;">手动组卷</a><span>&gt;</span>
+        <a href="javascript:;">按知识点</a><span>&gt;</span>
+        <a href="javascript:;">初中数学</a><span>&gt;</span>
+        <a href="javascript:;">综合知识点</a>
+    </div>
+    <div class="m-wrap g-cw cfx J_main">
+        <div class="g-sd">
+            <div class="list-sd-tree JV_tree">
+                <div class="JV_tree_hd list-tree-mt">
+                    <div class="mt-hd clearfix">选择知识点</div>
+                </div>
+                <div class="JV_tree_bd t-tree">
+                    <div class="TreeView t-tree-bd">
+                        <ul class="t-bd">
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">数与式</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">方程与不等式</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">函数</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">图形的性质</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">图形的变换</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">统计与概率</a></div>
+                                </div>
+                            </li>
+                            <li class="t-off t-ft">
+                                <div class="t-tit">
+                                    <span class="t-btn"><i></i></span>
+                                    <div class="t-name"><a href="javascript:;">附录</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w fl">
+            <div class="g-mn">
+                <div class="filter-box cfx JV_filter_box">
+                    <div class="FilterSelectView filter-item cfx"><span class="mt">  题型： </span>
+                        <div class="w fl">
+                            <div class="mc hide-mc">
+                                <ul class="filter-item-wrap cfx ">
+                                    <li><a class="active" data-param="question_channel_type=">全部</a></li>
+                                    <li><a class="" data-param="question_channel_type=1">单选题</a></li>
+                                    <li><a class="" data-param="question_channel_type=4">填空题</a></li>
+                                    <li><a class="" data-param="question_channel_type=5">计算题</a></li>
+                                    <li><a class="" data-param="question_channel_type=6">解答题</a></li>
+                                    <li><a class="" data-param="question_channel_type=25">作图题</a></li>
+                                    <li><a class="" data-param="question_channel_type=28">综合题</a></li>
+                                </ul>
+                                <div class="filter-more"><span><i class="iconw-more-down-tiggle"></i>更多</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FilterSelectView filter-item cfx"><span class="mt">  难度： </span>
+                        <div class="w fl">
+                            <div class="mc hide-mc">
+                                <ul class="filter-item-wrap cfx ">
+                                    <li><a class="active" data-param="difficult_index=">全部</a></li>
+                                    <li><a class="" data-param="difficult_index=1">容易</a></li>
+                                    <li><a class="" data-param="difficult_index=3">普通</a></li>
+                                    <li><a class="" data-param="difficult_index=5">困难</a></li>
+                                </ul>
+                                <div class="filter-more"><span><i class="iconw-more-down-tiggle"></i>更多</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="FilterSelectView filter-item cfx"><span class="mt">  题类： </span>
+                        <div class="w fl">
+                            <div class="mc hide-mc">
+                                <ul class="filter-item-wrap cfx ">
+                                    <li><a class="active" data-param="exam_type=">全部</a></li>
+                                    <li><a class="" data-param="exam_type=1">中考真题</a></li>
+                                    <li><a class="" data-param="exam_type=2">常考题</a></li>
+                                    <li><a class="" data-param="exam_type=7">模拟题</a></li>
+                                </ul>
+                                <div class="filter-more"><span><i class="iconw-more-down-tiggle"></i>更多</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="handle-line cfx">
+                    <div class="sort-item fl">
+                        <span class="sort-current J_sort_item" data-param="sort_field=time">时间<i class="iconw-sort-desc"></i></span>
+                        <span class="J_sort_item" data-param="sort_field=save_num">使用次数<i class="iconw-sort-desc"></i></span>
+                        <div class="custom-checkbox J_exclude_used"><i class="iconw-checkbox"></i>过滤已使用的试题</div>
+                    </div>
+                    <div class="act-item fr">
+                        <a class="selall-btn J_add_all">选择本页全部试题</a> <span>共计：<b class="J_count_questions">205687题</b></span>
+                    </div>
+                </div>
+                <div class="manual-list pr JV_list f-usn cursor" onselectstart="return false" onselect="return false"
+                     oncontextmenu="return false" ondragstart="return false">
+                    <div class="loading-wrap" style="display: none;">
+                        <div class="loading-bg"></div>
+                        <div class="loading"></div>
+                    </div>
+                    <div class="items">
+                        <ul>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">1. 如图，已知等边△OA<sub>1</sub>B<sub>1</sub> ， 顶点A<sub>1</sub>在双曲线y=
+                                            <img class="mathml" src="http://math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmrow%3E%3Cmsqrt%3E%3Cmn%3E3%3C%2Fmn%3E%3C%2Fmsqrt%3E%3C%2Fmrow%3E%3Cmi%3Ex%3C%2Fmi%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=64489dbbe945668bfb164c4bcbb8e3d7"
+                                                 style="vertical-align: middle;"> （x＞0）上，点B<sub>1</sub>的坐标为（2，0）．过B<sub>1</sub>作B<sub>1</sub>A<sub>2</sub>∥OA<sub>1</sub>交双曲线于点A<sub>2</sub>
+                                            ， 过A<sub>2</sub>作A<sub>2</sub>B<sub>2</sub>∥A<sub>1</sub>B<sub>1</sub>交x轴于点B<sub>2</sub>
+                                            ， 得到第二个等边△B<sub>1</sub>A<sub>2</sub>B<sub>2</sub>；过B<sub>2</sub>作B<sub>2</sub>A<sub>3</sub>∥B<sub>1</sub>A<sub>2</sub>交双曲线于点A<sub>3</sub>
+                                            ， 过A<sub>3</sub>作A<sub>3</sub>B<sub>3</sub>∥A<sub>2</sub>B<sub>2</sub>交x轴于点B<sub>3</sub>
+                                            ， 得到第三个等边△B<sub>2</sub>A<sub>3</sub>B<sub>3</sub>；以此类推，…，则点B<sub>6</sub>的坐标为
+                                            <span data-blank="{#blank#}1{#/blank#}" class="q-blank"></span>．<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/e0/19/e01980dd9889d90bc32fdc0e48453a4d.png" src="http://tikupic.21cnjy.com/e0/19/e01980dd9889d90bc32fdc0e48453a4d.png" alt="图片_x0020_260" height="138" width="205">
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：填空题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：普通</span> <em>|</em>
+                                            <span>组卷次数：2</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059489" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">2. 数据1、5、7、4、8的中位数是（&nbsp;&nbsp; ）</div>
+                                        <div class="exam-s">
+                                            <span class="op-item" w="32" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">A . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">4</span></span>
+                                            <span class="op-item" w="32" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">B . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">5</span></span>
+                                            <span class="op-item" w="32" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">C . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">6</span></span>
+                                            <span class="op-item" w="32" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">D . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">7</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：单选题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：容易</span><em>|</em>
+                                            <span>组卷次数：2</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059465" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">3. 如图，矩形ABCD中，BC=4，CD=2，以AD为直径的半圆O与BC相切于点E，连接BD，则阴影部分的面积为
+                                            <span data-blank="{#blank#}1{#/blank#}" class="q-blank"></span>．（结果保留π）<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/fe/86/fe86d985a185b34174f2521ccc76f978.png"
+                                                 src="http://tikupic.21cnjy.com/fe/86/fe86d985a185b34174f2521ccc76f978.png" alt="图片_x0020_258" height="95" width="152">
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：填空题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：普通</span><em>|</em>
+                                            <span>组卷次数：3</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059487" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">4. 据有关部门统计，2018年“五一小长假”期间，广东各大景点共接待游客约14420000人次，将数14420000用科学记数法表示为（&nbsp;&nbsp;
+                                            ）
+                                        </div>
+                                        <div class="exam-s">
+                                            <span class="op-item" w="94" h="29" style="width: 221px; margin-right: 0px; height: 29px; clear: none;">
+                                                <span class="op-item-nut">A . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">1.442×10<sup>7</sup></span></span>
+                                            <span class="op-item" w="102" h="29" style="width: 221px; margin-right: 0px; height: 29px; clear: none;">
+                                                <span class="op-item-nut">B . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">0.1442×10<sup>7</sup></span></span>
+                                            <span class="op-item" w="94" h="29" style="width: 221px; margin-right: 0px; height: 29px; clear: none;">
+                                                <span class="op-item-nut">C . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">1.442×10<sup>8</sup</span></span>
+                                            <span class="op-item" w="102" h="29" style="width: 221px; margin-right: 0px; height: 29px; clear: none;">
+                                                <span class="op-item-nut">D . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">0.1442×10<sup>8</sup></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：单选题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：容易</span><em>|</em>
+                                            <span>组卷次数：2</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059461" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">5. 关于x的一元二次方程x<sup>2</sup>﹣3x+m=0有两个不相等的实数根，则实数m的取值范围是（&nbsp;&nbsp;
+                                            ）
+                                        </div>
+                                        <div class="exam-s">
+                                            <span class="op-item" w="68" h="28" style="width: 221px; margin-right: 0px; height: 28px; clear: none;">
+                                                <span class="op-item-nut">A . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+                                                m＜ <img class="mathml" src="http://math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmn%3E9%3C%2Fmn%3E%3Cmn%3E4%3C%2Fmn%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=64489dbbe945668bfb164c4bcbb8e3d7" style="vertical-align: middle;"></span></span>
+                                            <span class="op-item" w="65" h="28" style="width: 221px; margin-right: 0px; height: 28px; clear: none;">
+                                                <span class="op-item-nut">B . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+                                                m≤ <img class="mathml" src="http://math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmn%3E9%3C%2Fmn%3E%3Cmn%3E4%3C%2Fmn%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=64489dbbe945668bfb164c4bcbb8e3d7" style="vertical-align: middle;"></span></span>
+                                            <span class="op-item" w="68" h="28" style="width: 221px; margin-right: 0px; height: 28px; clear: none;">
+                                                <span class="op-item-nut">C . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+                                                m＞ <img class="mathml" src="http://math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmn%3E9%3C%2Fmn%3E%3Cmn%3E4%3C%2Fmn%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=64489dbbe945668bfb164c4bcbb8e3d7" style="vertical-align: middle;"></span></span>
+                                            <span class="op-item" w="65" h="28" style="width: 221px; margin-right: 0px; height: 28px; clear: none;"><span
+                                                class="op-item-nut">D . </span><span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+                                                m≥ <img class="mathml" src="http://math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmn%3E9%3C%2Fmn%3E%3Cmn%3E4%3C%2Fmn%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=64489dbbe945668bfb164c4bcbb8e3d7" style="vertical-align: middle;"></span></span></div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：单选题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：普通</span><em>|</em>
+                                            <span>组卷次数：9</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059475" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">6. 如图，BD是菱形ABCD的对角线，∠CBD=75°，<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/01/c5/01c531e69d55800d18b3a49274c5524a.png"
+                                                src="http://tikupic.21cnjy.com/01/c5/01c531e69d55800d18b3a49274c5524a.png"
+                                                alt="图片_x0020_262" width="211" height="80">
+                                        </div>
+                                        <ol class="q-bd-list">
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（1）请用尺规作图法，作AB的垂直平分线EF，垂足为E，交AD于F；（不要求写作法，保留作图痕迹）</div>
+                                            </li>
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（2）在（1）条件下，连接BF，求∠DBF的度数．</div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：作图题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：普通</span><em>|</em>
+                                            <span>组卷次数：3</span>
+                                        </div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059495" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">7. 如图，由5个相同正方体组合而成的几何体，它的主视图是（&nbsp;&nbsp; ）<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/f4/77/f477918c13a87b3ab652b12ef157a674.png"
+                                                src="http://tikupic.21cnjy.com/f4/77/f477918c13a87b3ab652b12ef157a674.png"
+                                                alt="图片_x0020_246" width="102" height="76"></div>
+                                        <div class="exam-s">
+                                            <span class="op-item" w="129" h="67" style="width: 221px; margin-right: 0px; height: 67px; clear: none;">
+                                                <span class="op-item-nut">A . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+                                                    <img data-cke-saved-src="http://tikupic.21cnjy.com/c1/16/c1164638da489aef2f27ed8033bfa167.png"
+                                                    src="http://tikupic.21cnjy.com/c1/16/c1164638da489aef2f27ed8033bfa167.png"
+                                                    alt="图片_x0020_247" width="105" height="67">
+                                                </span>
+                                            </span>
+                                            <span class="op-item" w="124" h="64" style="width: 221px; margin-right: 0px; height: 67px; clear: none;">
+                                                <span class="op-item-nut">B . </span>
+                                                <span class="op-item-meat" style="margin-top: 1.5px; white-space: normal;">
+                                                    <img data-cke-saved-src="http://tikupic.21cnjy.com/ef/ea/efeac248270ad028e7c6e650d2c1f44b.png"
+                                                    src="http://tikupic.21cnjy.com/ef/ea/efeac248270ad028e7c6e650d2c1f44b.png"
+                                                    alt="" v:shapes="图片24" width="100" height="64">
+                                                </span>
+                                            </span>
+                                            <span class="op-item" w="92" h="64" style="width: 221px; margin-right: 0px; height: 67px; clear: none;">
+                                                <span class="op-item-nut">C . </span>
+                                                <span class="op-item-meat" style="margin-top: 1.5px; white-space: normal;"><img
+                                                    data-cke-saved-src="http://tikupic.21cnjy.com/6c/da/6cdad6858d6765c54c8cc2d8377b35e7.png"
+                                                    src="http://tikupic.21cnjy.com/6c/da/6cdad6858d6765c54c8cc2d8377b35e7.png"
+                                                    alt="" v:shapes="_x0000_i1031" width="68" height="64">
+                                                </span>
+                                            </span>
+                                            <span class="op-item" w="97" h="67" style="width: 221px; margin-right: 0px; height: 67px; clear: none;">
+                                                <span class="op-item-nut">D . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;"><img
+                                                    data-cke-saved-src="http://tikupic.21cnjy.com/d3/ee/d3eea1a5e157d4a470b3dc99dfd49d9e.png"
+                                                    src="http://tikupic.21cnjy.com/d3/ee/d3eea1a5e157d4a470b3dc99dfd49d9e.png"
+                                                    alt="" v:shapes="_x0000_i1032" width="73" height="67">
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：单选题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：容易</span><em>|</em>
+                                            <span>组卷次数：1</span>
+                                        </div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059463" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">8. 如图，四边形ABCD中，AB=AD=CD，以AB为直径的⊙O经过点C，连接AC，OD交于点E．<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/29/70/2970069a08df980be532f165d6379169.png"
+                                                src="http://tikupic.21cnjy.com/29/70/2970069a08df980be532f165d6379169.png"
+                                                alt="图片_x0020_270" width="152" height="106">
+                                        </div>
+                                        <ol class="q-bd-list">
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（1）证明：OD∥BC；</div>
+                                            </li>
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（2）若tan∠ABC=2，证明：DA与⊙O相切；</div>
+                                            </li>
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（3）在（2）条件下，连接BD交于⊙O于点F，连接EF，若BC=1，求EF的长．</div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：综合题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：困难</span><em>|</em>
+                                            <span>组卷次数：2</span></div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059529" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">9. 如图，AB∥CD，且∠DEC=100°，∠C=40°，则∠B的大小是（&nbsp;&nbsp; ）<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/0f/2e/0f2e9be21154824deb4d6d647a5222a4.png"
+                                                src="http://tikupic.21cnjy.com/0f/2e/0f2e9be21154824deb4d6d647a5222a4.png"
+                                                alt="图片_x0020_249" width="100" height="99">
+                                        </div>
+                                        <div class="exam-s">
+                                            <span class="op-item" w="46" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">A . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">30°</span>
+                                            </span>
+                                            <span class="op-item" w="46" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">B . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">40°</span>
+                                            </span>
+                                            <span class="op-item" w="46" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">C . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">50°</span>
+                                            </span>
+                                            <span class="op-item" w="46" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+                                                <span class="op-item-nut">D . </span>
+                                                <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">60°</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：单选题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：容易</span><em>|</em>
+                                            <span>组卷次数：2</span>
+                                        </div>
+                                        <div class="q-handle fr"><a href="/question/detail/8059473" target="_blank"
+                                                                    class="q-handle-item J_analyize"><i
+                                                class="iconw-jiexi"></i>查看解析</a> <a href="javascript:;"
+                                                                                    class="q-handle-item J_collect"> <i
+                                                class="iconw-collect"></i>收藏 </a> <a
+                                                class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="QuestionView">
+                                <div class="question-block">
+                                    <div class="q-mc">
+                                        <div class="q-tit">10. 已知Rt△OAB，∠OAB=90°，∠ABO=30°，斜边OB=4，将Rt△OAB绕点O顺时针旋转60°，如题图1，连接BC．<br>
+                                            <img data-cke-saved-src="http://tikupic.21cnjy.com/cb/cb/cbcb2c2f623233d7fa25e3234d53bc42.png"
+                                                 src="http://tikupic.21cnjy.com/cb/cb/cbcb2c2f623233d7fa25e3234d53bc42.png"
+                                                 alt="图片_x0020_272" width="421" height="145">
+                                        </div>
+                                        <ol class="q-bd-list">
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（1）填空：∠OBC=<span data-blank="{#blank#}1{#/blank#}" class="q-blank"></span>°；</div>
+                                            </li>
+                                            <li class="QuestionView">
+                                                <div class="q-tit">（2）如图1，连接AC，作OP⊥AC，垂足为P，求OP的长度；</div>
+                                            </li>
+                                            <li class="QuestionView">
+                                                <div class="q-tit">
+                                                    （3）如图2，点M，N同时从点O出发，在△OCB边上运动，M沿O→C→B路径匀速运动，N沿O→B→C路径匀速运动，当两点相遇时运动停止，已知点M的运动速度为1.5单位/秒，点N的运动速度为1单位/秒，设运动时间为x秒，△OMN的面积为y，求当x为何值时y取得最大值？最大值为多少？
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="q-origin">
+                                        <a href="/paper/view/1083643" target="_blank">试题来源：广东省2018年中考数学试卷</a>
+                                    </div>
+                                    <div class="q-msg cfx">
+                                        <div class="q-attr fl">
+                                            <span>题型：综合题</span><em>|</em>
+                                            <span>题类：中考真题</span><em>|</em>
+                                            <span>难度：普通</span><em>|</em>
+                                            <span>组卷次数：4</span>
+                                        </div>
+                                        <div class="q-handle fr">
+                                            <a href="/question/detail/8059537" target="_blank" class="q-handle-item J_analyize"><i class="iconw-jiexi"></i>查看解析</a>
+                                            <a href="javascript:;" class="q-handle-item J_collect"> <i class="iconw-collect"></i>收藏 </a>
+                                            <a class="q-handle-item J_report_error"><i class="iconw-error"></i>纠错</a>
+                                            <a class="q-add-btn J_add_remove">+ 选题</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="page-wrap JV_page">
+                    <form class="PageView">
+                        <div class="pagenum">
+
+                            <a data-page="1" href="javascript:;" class="current">1</a>
+                            <a data-page="2"
+                               href="/question/list?xd=2&amp;chid=3&amp;categories=&amp;knowledges=&amp;question_channel_type=&amp;difficult_index=&amp;exam_type=&amp;kid_num=&amp;grade_id=&amp;sort_field=time&amp;filterquestion=0&amp;page=2&amp;_=1531616935717&amp;per-page=10">2</a>
+                            <a data-page="3"
+                               href="/question/list?xd=2&amp;chid=3&amp;categories=&amp;knowledges=&amp;question_channel_type=&amp;difficult_index=&amp;exam_type=&amp;kid_num=&amp;grade_id=&amp;sort_field=time&amp;filterquestion=0&amp;page=3&amp;_=1531616935717&amp;per-page=10">3</a>
+                            <a data-page="4"
+                               href="/question/list?xd=2&amp;chid=3&amp;categories=&amp;knowledges=&amp;question_channel_type=&amp;difficult_index=&amp;exam_type=&amp;kid_num=&amp;grade_id=&amp;sort_field=time&amp;filterquestion=0&amp;page=4&amp;_=1531616935717&amp;per-page=10">4</a>
+                            <a data-page="5"
+                               href="/question/list?xd=2&amp;chid=3&amp;categories=&amp;knowledges=&amp;question_channel_type=&amp;difficult_index=&amp;exam_type=&amp;kid_num=&amp;grade_id=&amp;sort_field=time&amp;filterquestion=0&amp;page=5&amp;_=1531616935717&amp;per-page=10">5</a>
+
+                            <a data-page="2"
+                               href="/question/list?xd=2&amp;chid=3&amp;categories=&amp;knowledges=&amp;question_channel_type=&amp;difficult_index=&amp;exam_type=&amp;kid_num=&amp;grade_id=&amp;sort_field=time&amp;filterquestion=0&amp;page=2&amp;_=1531616935717&amp;per-page=10">下一页</a>
+
+                            <input style="
+                border: 1px solid #dcdcdc;
+                color: #333;
+                display: inline-block;
+                font-size: 12px;
+                height: 32px;
+                width: 30px;
+                line-height: 32px;
+                margin: 0 5px;
+                padding: 0 5px;
+                text-align: center;
+                white-space: nowrap;" name="page" onkeyup="toPaperNum(this)" type="text" value="1">
+                            <button type="submit" id="paper-jump" class="current">跳转</button>
+                            <script>
+                                function toPaperNum(ob) {
+                                    var v = parseInt($.trim(ob.value).toString().replace(/\D/, '').substr(0, 4)) || 0;
+                                    ob.value = v ? v : '';
+                                }
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer FootView">
+        <div class="g-cw">
+            <div class="footer-bd cfx">
+                <div class="footer-item"><h3>公司介绍</h3>
+                    <p>Company Introduction</p>
+                    <ul class="w50">
+                        <li><a href="//www.21cnjy.com/about/about_about.php" target="_blank"><b></b>公司简介</a></li>
+                        <li><a href="../../help/copyright.html" target="_blank"><b></b>版权声明</a></li>
+                        <li><a href="//www.21cnjy.com/about/about_company-news.php" target="_blank"><b></b>公司动态</a></li>
+                        <li><a href="../../help/feedback.html" target="_blank"><b></b>意见反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item"><h3>服务介绍</h3>
+                    <p>Service Introduction</p>
+                    <ul>
+                        <li><a href="../../help/zujuan.html" target="_blank"><b></b>组卷通服务</a></li>
+                        <li><a href="../../help/vip.html" target="_blank"><b></b>VIP会员服务</a></li>
+                        <li><a href="../../help/diy.html" target="_blank"><b></b>学校定制化服务</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item"><h3>帮助中心</h3>
+                    <p>Help center</p>
+                    <ul class="w50">
+                        <li><a href="../../help/demo.html" target="_blank"><b></b>视频帮助</a></li>
+                        <li><a href="../../help/faq.html" target="_blank"><b></b>常见问题</a></li>
+                        <li><a href="../../help/makepaper.html" target="_blank"><b></b>如何组卷</a></li>
+                        <li><a href="../../help/download.html" target="_blank"><b></b>下载试卷</a></li>
+                        <li><a href="../../help/test.html" target="_blank"><b></b>在线测试</a></li>
+                        <li><a href="../../new.html" target="_blank"><b></b>最新试题</a></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <div class="ewm-box"><img src="../../build/images/ewm1.png">
+                        <p><a href="javascript:;">二一教育</a></p></div>
+                </div>
+                <div class="footer-item">
+                    <div class="contact-msg"><h4>400-637-9991</h4>
+                        <p>周一至周五 8:30-17:30</p></div>
+                    <a href="javascript:;" class="contact-btn jBizQQWPA"><i class="iconw-qq"></i>在线咨询客服</a></div>
+            </div>
+            <div class="footer-adress">
+                <p>2006-2018 二一教育股份有限公司 <a>粤ICP备11039084号 </a> 粤教信息(2013)2号 </p>
+                <p><span>邮编：518000</span> <span>地址：深圳市龙岗区横岗街道深峰路3号启航商务大厦5楼5M</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="BasketView">
+        <div class="c-function OneBasketView">
+            <div class="c-fun-bd">
+                <div class="c-fun-box">
+                    <div class="basket__handler">
+                        <div class="c-basket-btn">
+                            <div class="c-basket-mc"><i class="iconw-box"></i>
+                                <p>试题篮</p>  <span>0</span></div>
+                        </div>
+                    </div>
+                    <div class="c-fun-blcok">
+                        <div class="c-fun-item">
+                            <a href="javascript:;" class="jBizQQWPA"> <i class="iconw-kf"></i> </a>
+                            <div class="c-fun-tip"><b class="iconw-tri-r"></b> QQ客服</div>
+                        </div>
+                        <div class="c-fun-item"><a href="javascript:;">
+                            <i class="iconw-gn"></i> </a>
+                            <div class="c-fun-tip c-ewm"><b class="iconw-tri-r"></b>
+                                <div class="c-ewm-item">
+                                    <img src="../../build/images/ewm1.png">
+                                    <p>二一教育</p>
+                                </div>
+                                <div class="c-ewm-item">
+                                    <img src="../../build/images/ewm2.png">
+                                    <p>二一组卷官方交流群1<br>(142401456)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-fun-item">
+                            <a href="/help/feedback"> <i class="iconw-fk"></i> </a>
+                            <div class="c-fun-tip"><b class="iconw-tri-r"></b> 意见反馈</div>
+                        </div>
+                        <div class="c-fun-item">
+                            <a href="javascript:;" class="J_gotop"> <i class="iconw-top"></i> </a>
+                            <div class="c-fun-tip"><b class="iconw-tri-r"></b> 返回顶部</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-basket basket__body">
+                <div class="scorll">
+                    <div class="basket-empty">您的试题篮还没有试题，马上添加试题吧！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--[if lt IE 9]>
+<link href="//static.21cnjy.com/kill-ie/kill-ie.css" rel="stylesheet" type="text/css">
+<script src="//static.21cnjy.com/kill-ie/kill-ie.js"></script>
+<![endif]-->
+
+
+<script> document.body.removeChild(document.getElementById('oes')); </script>
+<script src="//static.21cnjy.com/json2/json2.js"></script>
+<script src="//static.21cnjy.com/js/underscore-1.8.3.min.js"></script>
+<script src="//static.21cnjy.com/js/backbone-1.3.3.min.js"></script>
+<script src="//static.21cnjy.com/backbone-query-parameters/backbone.queryparams.min.js"></script>
+<script src="//static.21cnjy.com/artDialog/dist/dialog-plus.js"></script>
+<script src="//static.21cnjy.com/js/moment.js"></script>
+<script src="//static.21cnjy.com/js/moment-zh-cn.js"></script>
+<script src="//static.21cnjy.com/js/highcharts.js"></script>
+<script src="//static.21cnjy.com/js/raphael.min.js"></script>
+<script src="//static.21cnjy.com/js/jquery.md5.js"></script>
+<script src="//static.21cnjy.com/js/jquery.serializejson.min.js"></script>
+<script src="//static.21cnjy.com/js/jquery.cookie-1.4.1.min.js"></script>
+<script src="//static.21cnjy.com/superslide/jquery.SuperSlide.2.1.1.js"></script>
+<script src="../../lib/ckeditor2/ckeditor.js"></script>
+<script src="../../lib/texzilla.js"></script>
+<script src="../../lib/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js">
+    <
+    script > CKEDITOR.config.customConfig = 'config-custom.js'; </script>
+<script src="../../build/js/jst.js?v=0f992dab64"></script>
+<script src="../../build/js/app.js?v=c5f59b2cb0"></script>
+<script src="../../build/js/common.js?v=19a6c43abf"></script>
+<script src="../../build/js/module.js?v=8940b2565d"></script>
+<script>
+
+    $(document).ajaxError(function (t, i, n) {
+        if (401 == i.status && i.responseText) if (dialog) {
+            var o = dialog({id: "_dialog_ajax_verify_intercept", content: i.responseText, title: "安全验证"});
+            window._ajax_verify_success_callback = function () {
+                o.remove(), $.ajax(n)
+            }, o.showModal()
+        } else alert("无权限操作，请联系管理员！")
+    });
+
+    Application.bootstrap();
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5d70f3704df08b4bfedf4a7c4fb415ef";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+</html>

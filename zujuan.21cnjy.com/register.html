@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"><!--用在360中-->
+    <meta name="force-rendering" content="webkit"><!--用在其它-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>21教育</title>
+    <meta name="keyword" content="">
+    <meta name="description" content="">
+    <link rel="dns-prefetch" href="//www.21cnjy.com">
+    <link rel="dns-prefetch" href="//www.jbzyk.com">
+    <link rel="dns-prefetch" href="//news.jbzyk.com">
+    <link rel="dns-prefetch" href="//tikupic.21cnjy.com">
+    <link rel="dns-prefetch" href="//www.kt5u.com">
+    <link rel="icon" href="//www.21cnjy.com/favicon.ico" mce_href="//www.21cnjy.com/favicon.ico" type="image/x-icon">
+    <script>
+        // 全局空间
+        var ns = {};
+        ns.CSRF = {"_csrf": "TUJ6RVBxZzElDxkMMzlUa3VwLCA/F1QBAA4JPAEnJlgFDRAyIUQRcg=="};
+        ns.setting = {
+            gender: {
+                1: {value: 1, label: '男'},
+                2: {value: 2, label: '女'}
+            },
+            identity: {
+                1: {value: 1, label: '老师'},
+                2: {value: 2, label: '学生'},
+                3: {value: 3, label: '家长'}
+            },
+            xd: {
+                1: {value: 1, label: '小学'},
+                2: {value: 2, label: '初中'},
+                3: {value: 3, label: '高中'}
+            }
+        };
+
+    </script>
+    <link rel="stylesheet" href="build/css/login.min.css?v=1c04eaf3b6">
+</head>
+
+<body>
+
+
+<div class="c-head">
+    <div class="g-cwd cfx">
+        <div class="logo">
+            <img src="build/images/logo.png" alt="21教育logo">
+            <span>注册新账号</span>
+        </div>
+        <div class="menu">
+            <span>旗下产品<i class="cu-arrow-down"></i></span>
+            <ul class="menu-list">
+                <li><a href="//www.21cnjy.com/zhitongche/" target="_blank">校网通</a></li>
+                <li><a href="//zujuan.21cnjy.com/" target="_blank">在线组卷</a></li>
+                <li><a href="//www.jbzyk.com/" target="_blank">校本资源库</a></li>
+                <li><a href="//kt5u.21cnjy.com/" target="_blank">课堂无忧</a></li>
+                <li><a href="//tiku.21cnjy.com/" target="_blank">在线题库</a></li>
+                <li><a href="//www.21cnjy.com/video.php" target="_blank">名师讲堂</a></li>
+                <li><a href="//www.21cnjy.com/productshow/index.php?prod=school" target="_blank">数字化校园</a></li>
+                <li><a href="//www.21cnjy.com/productshow/index.php?prod=yun" target="_blank">区域云平台</a></li>
+                <li><a href="//www.21cnjy.com/productshow/app/" target="_blank">二一教育APP</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<
+<div class="g-cw1 reg-wrap">
+    <h2>注册新账号</h2>
+    <div class="reg-bd">
+        <ul class="flow-tag">
+            <li class="active">第一步：选择身份<i></i></li>
+            <li class="">第二步：填写信息<i></i></li>
+            <li class="">第三步：完成注册<i></i></li>
+        </ul>
+        <div class="main-view">
+            <div style="display: block;">
+                <ul class="sel-reg cfx">
+                    <li>
+                        <div class="reg-item">
+                            <div><img src="build/images/teacher.png" alt=""></div>
+                            <a href="javascript:;" data-identity="teacher">老师注册</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="reg-item">
+                            <div><img src="build/images/student.png" alt=""></div>
+                            <a href="javascript:;" data-identity="student">学生注册</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="reg-item">
+                            <div><img src="build/images/parent.png" alt=""></div>
+                            <a href="javascript:;" data-identity="parents">家长注册</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="login">
+                    <span>已拥有二一账号，</span><a href="login.html">登录&gt;&gt;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="address">
+        <p><span> 深圳市龙岗区横岗街道深峰路3号启航商务大厦5楼</span> <span>邮编：518000</span> <span>电话：4006379991</span></p>
+        <p>2006-2017 版权所有©深圳市二一教育股份有限公司 <a href="http://www.miitbeian.gov.cn/" rel="nofollow" target="_blank">粤ICP备11039084</a>
+            粤教信息(2013)2号</p>
+    </div>
+</div>
+<script src="//static.21cnjy.com/js/jquery-1.9.1.min.js"></script>
+<script src="//static.21cnjy.com/js/underscore-1.8.3.min.js"></script>
+<script src="//static.21cnjy.com/js/backbone-1.3.3.min.js"></script>
+<script src="//static.21cnjy.com/layer/3.0.1/layer.js"></script>
+<script>
+    ns.layer_defaults = function ($el, option) {
+        var defaults = {
+            content: '',
+            area: '500px',
+            fixed: false,
+            offset: "140px",
+            title: ($el ? $el.data('title') : false),
+            type: 1,
+            success: function (layero, index) {
+                if ($el) {
+                    $el.trigger('before-render');
+                    layero.find('.layui-layer-content').append($el);
+                    $el.trigger('render');
+                    $el.on('close', function () {
+                        layer.close(index);
+                    });
+                }
+            }
+        };
+
+        return $.extend({}, defaults, option);
+
+    };
+
+</script>
+
+<script type="text/template" id="tpl-stepbar">
+    <li class="<%= step > 0 ? 'active' : '' %>">第一步：选择身份<i></i></li>
+    <li class="<%= step > 1 ? 'active' : '' %>">第二步：填写信息<i></i></li>
+    <li class="<%= step > 2 ? 'active' : '' %>">第三步：完成注册<i></i></li>
+</script>
+<!--<script type="text/template" id="step1">-->
+    <!--<ul class="sel-reg cfx">-->
+        <!--<li>-->
+            <!--<div class="reg-item">-->
+                <!--<div><img src="build/images/teacher.png" alt=""></div>-->
+                <!--<a href="javascript:;" data-identity="teacher">老师注册</a>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<div class="reg-item">-->
+                <!--<div><img src="build/images/student.png" alt=""></div>-->
+                <!--<a href="javascript:;" data-identity="student">学生注册</a>-->
+            <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<div class="reg-item">-->
+                <!--<div><img src="build/images/parent.png" alt=""></div>-->
+                <!--<a href="javascript:;" data-identity="parents">家长注册</a>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="login">-->
+        <!--<span>已拥有二一账号，</span><a href="/login?jump_url=https%3A%2F%2Fzujuan.21cnjy.com">登录&gt&gt</a>-->
+    <!--</div>-->
+<!--</script>-->
+<script type="text/template" id="step2-mobile">
+    <div class="form-wrap cfx">
+        <!-- 弹窗开始 -->
+        <!-- <div class="reg-pop">
+            <div class="hd" >
+                <img src="/static/images/register/success1.png" alt="">
+                <h2>恭喜您,注册成功!</h2>
+                <i></i>
+            </div>
+            <div class="bd" >
+                <img src="/static/images/register/bang-code.png" alt="">
+                <div class="des" >
+                    <h3>微信扫码关注中小学教师帮</h3>
+                    <ul class="items">
+                        <li>1、中小学教师群体最有影响力的公众号</li>
+                        <li>2、21世纪教育网活动、优惠信息抢先知</li>
+                        <li>课堂经验、教学分享、零距离名师分享互动</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bg-model"></div> -->
+        <!-- 弹窗结束 -->
+        <form class="reg-form" action="/register?jump_url=https%3A%2F%2Fzujuan.21cnjy.com" method="post">
+            <input type="hidden" name="_csrf" value="TUJ6RVBxZzElDxkMMzlUa3VwLCA/F1QBAA4JPAEnJlgFDRAyIUQRcg==">
+            <div class="form-line hint-line">
+                <p class="ttips">提示：您当前选择的是<span><%- name %></span>身份，注册成功后无法更改，<a href="javascript:;"
+                                                                                   class="return-step1">重选&gt&gt</a></p>
+            </div>
+            <div class="form-line">
+                <label><span>*</span>手机号码：</label>
+                <div class="set-input">
+                    <label class="ie-placeholder" for="mobile">请输入手机号码</label>
+                    <input type="text" name="mobile" id="mobile" placeholder="请输入手机号码">
+
+                </div>
+            </div>
+
+            <div class="form-line">
+                <label><span>*</span>登录密码：</label>
+                <div class="set-input">
+                    <label class="ie-placeholder" for="password1">请输入密码</label>
+                    <input type="password" name="password" id="password1" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="form-line">
+                <label><span>*</span>确认密码：</label>
+                <div class="set-input">
+                    <label class="ie-placeholder" for="password12">请输入密码</label>
+                    <input type="password" name="password2" id="password12" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="form-line">
+                <label><span>*</span>图形验证码：</label>
+                <div class="set-input" id="mobile-captcha-template">
+                    <label class="ie-placeholder" for="scode2">图形验证码</label>
+                    <div class="input-b"><input type="text" name="verifyCode" id="verifyCode" class="code-txt"
+                                                placeholder="请输入图形验证码"></div>
+                    <img id="mobile-captcha" src="" alt="换一个" title="换一个" style="cursor:pointer;"/>
+                </div>
+            </div>
+            <div class="form-line" style="margin-top:-25px;">
+                <label><span>*</span>手机验证码：</label>
+                <div class="set-input">
+                    <label class="ie-placeholder" for="scode2">请输入验证码</label>
+                    <div class="input-b"><input type="text" name="scode" id="scode2" class="code-txt"
+                                                placeholder="请输入验证码"></div>
+                    <a href="/site/send-code?type=mobile&do=1" class="get-code" data-type="mobile">获取验证码</a>
+                </div>
+            </div>
+            <div class="agree-line"><span class="custom-checkbox"><i class="cu-checkbox4"></i><input type="checkbox"
+                                                                                                     name="agree"
+                                                                                                     value="1"></span>我同意<a
+                    href="/html/protocol.html" target="_blank">《21世纪教育网注册协议》</a></div>
+            <div class="form-btn cfx">
+                <input type="hidden" name="identity" value="<%= identity %>">
+                <input type="hidden" name="type" value="mobile">
+                <!--<a href="javascript:;" class="return-step1">上一步</a>-->
+                <button class="reg-btn" type="submit">注册</button>
+            </div>
+        </form>
+        <div class="login">
+            <span>已拥有二一账号，</span><a href="/login?jump_url=https%3A%2F%2Fzujuan.21cnjy.com">登录&gt&gt</a>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="step3">
+    <div>
+        <div class=" cfx">
+            <!-- 弹窗开始 -->
+            <div class="reg-pop" style="border:1px solid #52C684">
+                <div class="hd">
+                    <img src="build/success1.png" alt="OK">
+                    <h2>恭喜您,注册成功!</h2>
+                    <i></i>
+                </div>
+                <div class="bd">
+                    <img src="build/images/zhaopin-code.jpg" alt="人才网">
+                    <div class="des">
+                        <h3 style="font-size:16px">推荐微信公众号：二一教育人才网</h3>
+                        <ul class="items">
+                            <li>1、中小学校、培训机构教师招聘服务</li>
+                            <li>2、为中小学教师提供免费求职服务</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="bd">
+                    <img src="build/images/bang-code.jpg" alt="中小学教师帮">
+                    <div class="des">
+                        <h3 style="font-size:16px">推荐微信公众号：中小学教师帮</h3>
+                        <ul class="items">
+                            <li>1、中小学教师群体最有影响力的公众号</li>
+                            <li>2、课堂经验、教学分享、零距离名师分享互动</li>
+                            <li>
+                                <div class="dong sel-reg">
+                                    <a href="https://zujuan.21cnjy.com">确定</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class=""></div>
+            <!-- 弹窗结束 -->
+        </div>
+        <div>
+            <div class="gate">
+                <span>传送门：</span>
+                <ul class="gate-list">
+                    <li><a href="//www.21cnjy.com/">21世纪教育网</a></li>
+                    <li><a href="//zujuan.21cnjy.com/">二一组卷平台</a></li>
+                    <li><a href="//www.kt5u.com/">课堂无忧</a></li>
+                    <li><a href="//tiku.21cnjy.com/">在线题库</a></li>
+                    <li><a href="//video.21cnjy.com/">名师讲堂</a></li>
+                </ul>
+            </div>
+        </div>
+</script>
+
+<script src="build/js/common-form.min.js?v=c789532d89"></script>
+<script src="build/js/register1.min.js?v=a89573c336"></script>
+<script>
+    (function () {
+        // 初始化
+        // 注册状态初始数据
+        var model = new Backbone.Model({
+            step: 0,
+            identity: '',
+            name: '',
+            type: 'mobile',
+            completed: 0 // 0 注册填写中, 1 注册成功, 2 注册失败
+        });
+
+        new LayoutView({el: '.reg-bd', model: model});
+    })();
+</script>
+</body>
+
+</html>
